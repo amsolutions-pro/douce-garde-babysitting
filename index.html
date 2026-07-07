@@ -3,440 +3,933 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Douce Garde • Baby-sitting par Léa</title>
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Léa - Baby-sitting de confiance</title>
+
+    <!-- Font Awesome pour les icônes -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
     <style>
+        /* ===========================
+               VARIABLES CSS (modifiables)
+            =========================== */
         :root {
-            --primary: #f4a8b8;
-            --secondary: #a8d5ba;
-            --accent: #f5e8d3;
-        }
-        
-        .hero-bg {
-            background: linear-gradient(rgba(244, 168, 184, 0.85), rgba(168, 213, 186, 0.85)), url('https://picsum.photos/id/1015/2000/1200') center/cover no-repeat;
-        }
-
-        .nav-link {
-            transition: all 0.3s ease;
-        }
-        
-        .nav-link:hover {
-            color: #f4a8b8;
-            transform: translateY(-2px);
-        }
-
-        .service-card {
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        
-        .service-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+            --rose-poudre: #f2d7d5;
+            --rose-poudre-fonce: #e8b4b0;
+            --vert-eau: #d4ede5;
+            --vert-eau-fonce: #a8d8cc;
+            --beige: #fef9f4;
+            --blanc: #ffffff;
+            --texte: #4a4a4a;
+            --texte-clair: #7a7a7a;
+            --bordure: #e8ddd5;
+            --ombre: 0 4px 15px rgba(0, 0, 0, 0.06);
+            --ombre-forte: 0 8px 30px rgba(0, 0, 0, 0.10);
+            --rayon: 16px;
+            --rayon-petit: 10px;
+            --transition: 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            --font-titre: 'Georgia', 'Times New Roman', serif;
+            --font-texte: 'Segoe UI', 'Helvetica Neue', Arial, sans-serif;
         }
 
-        .slot-available {
-            background-color: #a8d5ba;
-            color: white;
+        /* ===========================
+               RESET & BASE
+            =========================== */
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
-        .form-section {
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: var(--font-texte);
+            background-color: var(--beige);
+            color: var(--texte);
+            line-height: 1.7;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* ===========================
+               CONTENEUR PRINCIPAL
+            =========================== */
+        .conteneur-site {
+            width: 100%;
+            max-width: 800px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        /* ===========================
+               SECTION ACCUEIL
+            =========================== */
+        .section-accueil {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 40px 20px 20px;
+            transition: opacity var(--transition), transform var(--transition);
+        }
+
+        .section-accueil.masquee {
             display: none;
         }
-        
-        .form-section.active {
+
+        .logo-icone {
+            font-size: 4rem;
+            color: var(--rose-poudre-fonce);
+            margin-bottom: 10px;
+        }
+
+        .titre-principal {
+            font-family: var(--font-titre);
+            font-size: 2.4rem;
+            color: var(--texte);
+            margin-bottom: 6px;
+            letter-spacing: -0.5px;
+        }
+
+        .sous-titre {
+            font-size: 1.1rem;
+            color: var(--texte-clair);
+            margin-bottom: 25px;
+            font-style: italic;
+        }
+
+        .carte-presentation {
+            background: var(--blanc);
+            border-radius: var(--rayon);
+            padding: 30px 25px;
+            box-shadow: var(--ombre);
+            margin-bottom: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            max-width: 550px;
+            width: 100%;
+        }
+
+        .photo-placeholder {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--rose-poudre), var(--vert-eau));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            color: var(--blanc);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            flex-shrink: 0;
+        }
+
+        .carte-presentation h2 {
+            font-family: var(--font-titre);
+            font-size: 1.6rem;
+            color: var(--texte);
+        }
+
+        .carte-presentation p {
+            color: var(--texte-clair);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .badges-qualites {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 5px;
+        }
+
+        .badge {
+            background: var(--vert-eau);
+            color: #3b6b5e;
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            white-space: nowrap;
+        }
+
+        .badge i {
+            font-size: 0.9rem;
+        }
+
+        .bouton-reserver {
+            background: var(--rose-poudre-fonce);
+            color: var(--blanc);
+            border: none;
+            padding: 16px 40px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(232, 180, 176, 0.4);
+            transition: all 0.3s ease;
+            letter-spacing: 0.3px;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-family: var(--font-texte);
+        }
+
+        .bouton-reserver:hover {
+            background: #da9e99;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 28px rgba(232, 180, 176, 0.5);
+        }
+        .bouton-reserver:active {
+            transform: translateY(0);
+            box-shadow: 0 4px 12px rgba(232, 180, 176, 0.3);
+        }
+
+        /* ===========================
+               SECTION RÉSERVATION
+            =========================== */
+        .section-reservation {
+            display: none;
+            flex-direction: column;
+            gap: 25px;
+            padding: 20px 0 40px;
+            transition: opacity var(--transition), transform var(--transition);
+        }
+
+        .section-reservation.visible {
+            display: flex;
+            animation: apparaitre 0.5s ease forwards;
+        }
+
+        @keyframes apparaitre {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .bouton-retour {
+            background: none;
+            border: 1.5px solid var(--bordure);
+            color: var(--texte-clair);
+            padding: 8px 18px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s;
+            align-self: flex-start;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-family: var(--font-texte);
+        }
+        .bouton-retour:hover {
+            background: var(--blanc);
+            border-color: var(--rose-poudre-fonce);
+            color: var(--texte);
+        }
+
+        .titre-reservation {
+            font-family: var(--font-titre);
+            font-size: 1.8rem;
+            color: var(--texte);
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        /* --- Bloc Services --- */
+        .bloc-services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .carte-service {
+            background: var(--blanc);
+            border-radius: var(--rayon-petit);
+            padding: 20px;
+            box-shadow: var(--ombre);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        .carte-service:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--ombre-forte);
+        }
+        .carte-service i {
+            font-size: 2rem;
+            color: var(--vert-eau-fonce);
+            margin-bottom: 8px;
+        }
+        .carte-service h3 {
+            font-family: var(--font-titre);
+            font-size: 1rem;
+            margin-bottom: 5px;
+            color: var(--texte);
+        }
+        .carte-service p {
+            font-size: 0.85rem;
+            color: var(--texte-clair);
+            line-height: 1.4;
+        }
+
+        /* --- Bloc Planning --- */
+        .bloc-planning {
+            background: var(--blanc);
+            border-radius: var(--rayon-petit);
+            padding: 20px;
+            box-shadow: var(--ombre);
+            overflow-x: auto;
+        }
+        .bloc-planning h3 {
+            font-family: var(--font-titre);
+            margin-bottom: 12px;
+            font-size: 1.2rem;
+        }
+        .bloc-planning table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 600px;
+            font-size: 0.85rem;
+        }
+        .bloc-planning th,
+        .bloc-planning td {
+            padding: 8px 6px;
+            text-align: center;
+            border: 1px solid var(--bordure);
+        }
+        .bloc-planning th {
+            background: var(--vert-eau);
+            color: #3b6b5e;
+            font-weight: 600;
+            font-size: 0.8rem;
+            white-space: nowrap;
+        }
+        .bloc-planning .disponible {
+            background: #e6f7ef;
+            color: #2d6a4f;
+            font-weight: 500;
+            border-radius: 4px;
+        }
+        .bloc-planning .indisponible {
+            background: #fcecea;
+            color: #c4a3a0;
+            font-size: 0.8rem;
+        }
+        .legende-planning {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+            font-size: 0.8rem;
+            color: var(--texte-clair);
+            flex-wrap: wrap;
+        }
+        .legende-planning span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .legende-planning .pastille {
+            width: 12px;
+            height: 12px;
+            border-radius: 3px;
+            display: inline-block;
+        }
+        .pastille-dispo {
+            background: #e6f7ef;
+            border: 1px solid #2d6a4f;
+        }
+        .pastille-indispo {
+            background: #fcecea;
+            border: 1px solid #c4a3a0;
+        }
+
+        /* --- Bloc Tarifs --- */
+        .bloc-tarifs {
+            background: var(--blanc);
+            border-radius: var(--rayon-petit);
+            padding: 20px;
+            box-shadow: var(--ombre);
+        }
+        .bloc-tarifs h3 {
+            font-family: var(--font-titre);
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+        }
+        .bloc-tarifs ul {
+            list-style: none;
+            padding: 0;
+        }
+        .bloc-tarifs li {
+            padding: 8px 0;
+            border-bottom: 1px solid #f5efe8;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.95rem;
+        }
+        .bloc-tarifs li i {
+            color: var(--vert-eau-fonce);
+            font-size: 1rem;
+        }
+        .bloc-tarifs .note-tarif {
+            margin-top: 10px;
+            font-size: 0.85rem;
+            color: var(--texte-clair);
+            font-style: italic;
+            background: #fefbf8;
+            padding: 10px;
+            border-radius: 8px;
+            border-left: 3px solid var(--vert-eau-fonce);
+        }
+
+        /* --- Formulaire --- */
+        .formulaire-reservation {
+            background: var(--blanc);
+            border-radius: var(--rayon-petit);
+            padding: 25px 20px;
+            box-shadow: var(--ombre);
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+        .formulaire-reservation h3 {
+            font-family: var(--font-titre);
+            font-size: 1.2rem;
+            margin-bottom: 5px;
+        }
+        .formulaire-reservation label {
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: var(--texte);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .formulaire-reservation input,
+        .formulaire-reservation select,
+        .formulaire-reservation textarea {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1.5px solid var(--bordure);
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-family: var(--font-texte);
+            background: #fefcf9;
+            transition: border 0.3s, box-shadow 0.3s;
+            color: var(--texte);
+        }
+        .formulaire-reservation input:focus,
+        .formulaire-reservation select:focus,
+        .formulaire-reservation textarea:focus {
+            outline: none;
+            border-color: var(--vert-eau-fonce);
+            box-shadow: 0 0 0 3px rgba(168, 216, 204, 0.2);
+        }
+        .formulaire-reservation textarea {
+            resize: vertical;
+            min-height: 90px;
+        }
+        .rangee-champs {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        .rangee-champs>div {
+            flex: 1;
+            min-width: 140px;
+        }
+        .bouton-envoyer {
+            background: var(--vert-eau-fonce);
+            color: var(--blanc);
+            border: none;
+            padding: 14px 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s;
+            align-self: center;
+            letter-spacing: 0.3px;
+            box-shadow: 0 4px 15px rgba(168, 216, 204, 0.4);
+            font-family: var(--font-texte);
+        }
+        .bouton-envoyer:hover {
+            background: #8ec4b4;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 22px rgba(168, 216, 204, 0.5);
+        }
+
+        /* --- Message confirmation --- */
+        .confirmation {
+            display: none;
+            background: #e6f7ef;
+            border: 1px solid #a8d8cc;
+            border-radius: var(--rayon-petit);
+            padding: 20px;
+            text-align: center;
+            color: #2d6a4f;
+            font-weight: 500;
+            animation: apparaitre 0.5s ease;
+        }
+        .confirmation.visible {
             display: block;
         }
-
-        .fade-in {
-            animation: fadeIn 0.6s ease forwards;
+        .confirmation i {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        /* ===========================
+               PIED DE PAGE
+            =========================== */
+        .pied-page {
+            text-align: center;
+            padding: 25px 20px;
+            color: var(--texte-clair);
+            font-size: 0.8rem;
         }
 
-        .tail-container {
-            max-width: 1280px;
-            margin-left: auto;
-            margin-right: auto;
+        /* ===========================
+               RESPONSIVE
+            =========================== */
+        @media (max-width: 600px) {
+            .titre-principal {
+                font-size: 1.8rem;
+            }
+            .carte-presentation {
+                padding: 20px 15px;
+            }
+            .photo-placeholder {
+                width: 90px;
+                height: 90px;
+                font-size: 2.5rem;
+            }
+            .bouton-reserver {
+                padding: 14px 28px;
+                font-size: 1rem;
+                width: 100%;
+                justify-content: center;
+            }
+            .bloc-services {
+                grid-template-columns: 1fr;
+            }
+            .rangee-champs {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .bloc-planning table {
+                font-size: 0.7rem;
+                min-width: 500px;
+            }
+            .bloc-planning th,
+            .bloc-planning td {
+                padding: 5px 3px;
+            }
         }
     </style>
 </head>
-<body class="bg-[#f9f5f0] text-gray-800 font-sans">
-    <!-- NAVBAR -->
-    <nav class="bg-white shadow-md sticky top-0 z-50">
-        <div class="tail-container px-6 py-4 flex justify-between items-center">
-            <div class="flex items-center gap-3">
-                <div class="w-10 h-10 bg-[#f4a8b8] rounded-2xl flex items-center justify-center text-white text-2xl">
-                    👶
+<body>
+
+    <div class="conteneur-site">
+
+        <!-- ========================
+             SECTION ACCUEIL
+             ======================== -->
+        <section class="section-accueil" id="accueil">
+            <div class="logo-icone">
+                <i class="fa-solid fa-child-reaching"></i>
+            </div>
+            <h1 class="titre-principal">Léa, votre baby-sitter de confiance</h1>
+            <p class="sous-titre">Douceur, sérieux et sourire au service de vos enfants</p>
+
+            <div class="carte-presentation">
+                <!-- Photo placeholder (à remplacer par une vraie image plus tard) -->
+                <div class="photo-placeholder" aria-label="Photo de Léa">
+                    <i class="fa-solid fa-user"></i>
+                    <!-- Pour mettre une vraie photo, remplace la div ci-dessus par :
+                    <img src="photo-lea.jpg" alt="Photo de Léa" style="width:120px;height:120px;border-radius:50%;object-fit:cover;">
+                    -->
                 </div>
-                <div>
-                    <h1 class="text-2xl font-bold text-[#f4a8b8]">Douce Garde</h1>
-                    <p class="text-xs text-gray-500 -mt-1">par Léa</p>
+                <h2>Bonjour, je suis Léa !</h2>
+                <p>
+                    J'ai 14 ans et je suis une jeune fille responsable, patiente et attentionnée.
+                    J'adore m'occuper des enfants, jouer avec eux, les aider avec leurs devoirs
+                    et veiller à leur bien-être. J'ai déjà gardé mes petits cousins et les enfants
+                    de voisins, et je suis formée aux gestes de premiers secours.
+                </p>
+                <div class="badges-qualites">
+                    <span class="badge"><i class="fa-solid fa-heart"></i> Patiente & douce</span>
+                    <span class="badge"><i class="fa-solid fa-shield-halved"></i> Responsable</span>
+                    <span class="badge"><i class="fa-solid fa-star"></i> Expérimentée</span>
                 </div>
             </div>
-            <div class="hidden md:flex items-center gap-8 text-sm font-medium">
-                <a href="#accueil" onclick="navigateToHome()" class="nav-link text-gray-700">Accueil</a>
-                <a href="#services" onclick="showReservation()" class="nav-link text-gray-700">Services</a>
-                <a href="#dispos" onclick="showReservation()" class="nav-link text-gray-700">Disponibilités</a>
-                <a href="#tarifs" onclick="showReservation()" class="nav-link text-gray-700">Tarifs</a>
-            </div>
-            <button onclick="showReservation()" 
-                    class="bg-[#f4a8b8] hover:bg-[#e88a9f] text-white px-6 py-3 rounded-2xl font-medium flex items-center gap-2 transition-colors">
-                <i class="fas fa-calendar-check"></i>
-                Réserver
+
+            <button class="bouton-reserver" id="boutonAllerReservation" aria-label="Aller au formulaire de réservation">
+                <i class="fa-solid fa-calendar-check"></i> Réserver un baby-sitting
             </button>
-        </div>
-    </nav>
+        </section>
 
-    <!-- HERO / ACCUEIL -->
-    <section id="accueil" class="hero-bg text-white py-24 md:py-32">
-        <div class="tail-container px-6 text-center">
-            <div class="max-w-3xl mx-auto">
-                <p class="inline-block bg-white/20 backdrop-blur-md text-white text-sm px-6 py-2 rounded-3xl mb-6">
-                    <i class="fas fa-heart mr-2"></i> Confiance • Douceur • Fiabilité
-                </p>
-                <h2 class="text-5xl md:text-6xl font-bold leading-tight mb-6">
-                    Une jeune fille sérieuse et attentionnée<br>pour prendre soin de vos enfants
-                </h2>
-                <p class="text-xl md:text-2xl mb-10 text-white/90">
-                    Léa, 14 ans, propose des services de baby-sitting adaptés à vos besoins avec beaucoup de douceur et de professionnalisme.
-                </p>
-                
-                <div class="flex flex-col md:flex-row gap-6 justify-center items-center">
-                    <button onclick="showReservation()" 
-                            class="bg-white text-[#f4a8b8] hover:bg-[#f5e8d3] px-10 py-5 rounded-3xl text-xl font-semibold shadow-xl hover:shadow-2xl transition-all flex items-center gap-4 group">
-                        Demander une disponibilité
-                        <i class="fas fa-arrow-right group-active:translate-x-2 transition-transform"></i>
-                    </button>
+        <!-- ========================
+             SECTION RÉSERVATION
+             ======================== -->
+        <section class="section-reservation" id="reservation">
+            <button class="bouton-retour" id="boutonRetourAccueil" aria-label="Retour à l'accueil">
+                <i class="fa-solid fa-arrow-left"></i> Retour
+            </button>
+            <h2 class="titre-reservation">✨ Demande de réservation</h2>
+
+            <!-- 1. Services proposés -->
+            <div class="bloc-services">
+                <div class="carte-service">
+                    <i class="fa-solid fa-sun"></i>
+                    <h3>Accompagnement matin</h3>
+                    <p>J'accompagne vos enfants à l'école le matin en toute sécurité, à pied ou en transports en commun.</p>
                 </div>
-                
-                <div class="mt-16 flex justify-center gap-8 text-sm">
-                    <div class="flex items-center gap-2">
-                        <i class="fas fa-check text-green-300"></i>
-                        <span>Expérience avec enfants</span>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <i class="fas fa-check text-green-300"></i>
-                        <span>Disponible rapidement</span>
-                    </div>
+                <div class="carte-service">
+                    <i class="fa-solid fa-cloud-moon"></i>
+                    <h3>Récupération soir</h3>
+                    <p>Je récupère vos enfants à l'école et les ramène à la maison, avec goûter et aide aux devoirs si besoin.</p>
+                </div>
+                <div class="carte-service">
+                    <i class="fa-solid fa-house"></i>
+                    <h3>Garde à domicile</h3>
+                    <p>Je garde vos enfants chez vous : jeux, lecture, bain, repas et coucher en respectant vos consignes.</p>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- PRESENTATION -->
-    <section class="py-16 bg-white">
-        <div class="tail-container px-6">
-            <div class="grid md:grid-cols-2 gap-12 items-center">
-                <div>
-                    <img src="https://picsum.photos/id/64/600/700" 
-                         alt="Léa" 
-                         class="rounded-3xl shadow-2xl w-full object-cover h-[520px]">
+            <!-- 2. Planning des disponibilités -->
+            <div class="bloc-planning">
+                <h3><i class="fa-solid fa-calendar-week"></i> Mes disponibilités habituelles</h3>
+                <!--
+                    MODE D'EMPLOI POUR MODIFIER LES DISPONIBILITÉS :
+                    - Chaque case <td> correspond à un créneau.
+                    - Ajoute la classe "disponible" pour un créneau où Léa est libre.
+                    - Ajoute la classe "indisponible" pour un créneau où elle n'est pas libre.
+                    - Tu peux changer le texte dans les cases (ex: "Dispo", "Occupée", ou laisser vide).
+                    - Les horaires exacts sont indicatifs, le planning donne une vue d'ensemble.
+                -->
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Créneau</th>
+                            <th>Lundi</th>
+                            <th>Mardi</th>
+                            <th>Mercredi</th>
+                            <th>Jeudi</th>
+                            <th>Vendredi</th>
+                            <th>Samedi</th>
+                            <th>Dimanche</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>7h – 9h</strong><br><small>(accompagnement)</small></td>
+                            <td class="disponible">Dispo</td>
+                            <td class="disponible">Dispo</td>
+                            <td class="indisponible">—</td>
+                            <td class="disponible">Dispo</td>
+                            <td class="disponible">Dispo</td>
+                            <td class="indisponible">—</td>
+                            <td class="indisponible">—</td>
+                        </tr>
+                        <tr>
+                            <td><strong>16h – 19h</strong><br><small>(récupération)</small></td>
+                            <td class="disponible">Dispo</td>
+                            <td class="disponible">Dispo</td>
+                            <td class="indisponible">—</td>
+                            <td class="disponible">Dispo</td>
+                            <td class="disponible">Dispo</td>
+                            <td class="indisponible">—</td>
+                            <td class="indisponible">—</td>
+                        </tr>
+                        <tr>
+                            <td><strong>13h – 18h</strong><br><small>(garde mercredi)</small></td>
+                            <td class="indisponible">—</td>
+                            <td class="indisponible">—</td>
+                            <td class="disponible">Dispo</td>
+                            <td class="indisponible">—</td>
+                            <td class="indisponible">—</td>
+                            <td class="indisponible">—</td>
+                            <td class="indisponible">—</td>
+                        </tr>
+                        <tr>
+                            <td><strong>9h – 18h</strong><br><small>(garde samedi)</small></td>
+                            <td class="indisponible">—</td>
+                            <td class="indisponible">—</td>
+                            <td class="indisponible">—</td>
+                            <td class="indisponible">—</td>
+                            <td class="indisponible">—</td>
+                            <td class="disponible">Dispo</td>
+                            <td class="indisponible">—</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="legende-planning">
+                    <span><span class="pastille pastille-dispo"></span> Disponible</span>
+                    <span><span class="pastille pastille-indispo"></span> Non disponible</span>
+                    <span style="margin-left:auto; font-style:italic;">Planning indicatif – contactez-moi pour confirmer</span>
                 </div>
-                <div class="space-y-8">
+            </div>
+
+            <!-- 3. Tarifs -->
+            <div class="bloc-tarifs">
+                <h3><i class="fa-solid fa-tag"></i> Tarifs transparents</h3>
+                <ul>
+                    <li><i class="fa-solid fa-clock"></i> <strong>Tarif horaire : 8 € / heure</strong> (tout type de service)</li>
+                    <li><i class="fa-solid fa-hourglass-half"></i> <strong>Minimum : 1 heure</strong> par réservation</li>
+                    <li><i class="fa-solid fa-moon"></i> <strong>Forfait soirée (après 20h) :</strong> +2 € / heure</li>
+                    <li><i class="fa-solid fa-calendar-day"></i> <strong>Forfait journée complète :</strong> 55 € (8h, soit ~6,90 €/h)</li>
+                </ul>
+                <div class="note-tarif">
+                    <i class="fa-solid fa-circle-info"></i>
+                    <strong>À noter :</strong> Les tarifs sont ajustables selon la durée, le nombre d'enfants et les besoins spécifiques.
+                    N'hésitez pas à m'en parler lors de notre échange.
+                </div>
+            </div>
+
+            <!-- 4. Formulaire de contact/réservation -->
+            <form class="formulaire-reservation" id="formulaireReservation" novalidate>
+                <h3><i class="fa-solid fa-paper-plane"></i> Envoyez votre demande</h3>
+
+                <!-- Nom et prénom -->
+                <div class="rangee-champs">
                     <div>
-                        <h3 class="text-4xl font-bold mb-4">Bonjour, je suis Léa ! 👋</h3>
-                        <p class="text-lg leading-relaxed text-gray-600">
-                            J'ai 14 ans et j'adore m'occuper des enfants. Je suis sérieuse, patiente, créative et très à l'écoute. 
-                            J'ai déjà une belle expérience avec des enfants de 3 à 12 ans.
-                        </p>
+                        <label for="prenom">Prénom <span style="color:#c97d7d;">*</span></label>
+                        <input type="text" id="prenom" name="prenom" placeholder="Votre prénom" required autocomplete="given-name">
                     </div>
-                    
-                    <div class="grid grid-cols-2 gap-6">
-                        <div class="bg-[#f9f5f0] p-6 rounded-3xl">
-                            <i class="fas fa-heart text-3xl text-[#f4a8b8] mb-4"></i>
-                            <h4 class="font-semibold mb-1">Douce et attentive</h4>
-                            <p class="text-sm text-gray-600">Je m'adapte aux besoins de chaque enfant</p>
-                        </div>
-                        <div class="bg-[#f9f5f0] p-6 rounded-3xl">
-                            <i class="fas fa-graduation-cap text-3xl text-[#a8d5ba] mb-4"></i>
-                            <h4 class="font-semibold mb-1">Responsable</h4>
-                            <p class="text-sm text-gray-600">Brevet de secourisme en cours</p>
-                        </div>
-                    </div>
-                    
-                    <div class="pt-6 border-t">
-                        <p class="italic text-gray-500">"J'aime voir les enfants sourire et s'épanouir pendant que je m'occupe d'eux."</p>
-                        <p class="text-sm mt-3 text-gray-400">- Léa</p>
+                    <div>
+                        <label for="nom">Nom <span style="color:#c97d7d;">*</span></label>
+                        <input type="text" id="nom" name="nom" placeholder="Votre nom" required autocomplete="family-name">
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
 
-    <!-- RESERVATION SECTION -->
-    <section id="reservation-section" class="form-section py-16 bg-[#f9f5f0]">
-        <div class="tail-container px-6">
-            <div class="flex justify-between items-center mb-10">
-                <h2 class="text-4xl font-bold">Réservation</h2>
-                <button onclick="navigateToHome()" 
-                        class="text-gray-500 hover:text-gray-700 flex items-center gap-2">
-                    <i class="fas fa-arrow-left"></i>
-                    <span>Retour à l'accueil</span>
+                <!-- Téléphone -->
+                <div>
+                    <label for="telephone">Téléphone <span style="color:#c97d7d;">*</span></label>
+                    <input type="tel" id="telephone" name="telephone" placeholder="06 12 34 56 78" required autocomplete="tel">
+                </div>
+
+                <!-- Adresse -->
+                <div>
+                    <label for="adresse">Adresse complète du domicile <span style="color:#c97d7d;">*</span></label>
+                    <input type="text" id="adresse" name="adresse" placeholder="Numéro, rue, code postal, ville" required autocomplete="street-address">
+                </div>
+
+                <!-- Date souhaitée -->
+                <div>
+                    <label for="dateSouhaitee">Date souhaitée <span style="color:#c97d7d;">*</span></label>
+                    <input type="date" id="dateSouhaitee" name="dateSouhaitee" required>
+                </div>
+
+                <!-- Heures de début et fin -->
+                <div class="rangee-champs">
+                    <div>
+                        <label for="heureDebut">Heure de début <span style="color:#c97d7d;">*</span></label>
+                        <select id="heureDebut" name="heureDebut" required>
+                            <option value="">-- : --</option>
+                            <!-- Généré dynamiquement en JS (toutes les 15 min) -->
+                        </select>
+                    </div>
+                    <div>
+                        <label for="heureFin">Heure de fin <span style="color:#c97d7d;">*</span></label>
+                        <select id="heureFin" name="heureFin" required>
+                            <option value="">-- : --</option>
+                            <!-- Généré dynamiquement en JS -->
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Type de service -->
+                <div>
+                    <label for="typeService">Type de service <span style="color:#c97d7d;">*</span></label>
+                    <select id="typeService" name="typeService" required>
+                        <option value="">-- Choisissez un service --</option>
+                        <option value="accompagnement-matin">Accompagnement à l'école (matin)</option>
+                        <option value="recuperation-soir">Récupération à l'école (soir)</option>
+                        <option value="garde-domicile">Garde à domicile</option>
+                    </select>
+                </div>
+
+                <!-- Nombre d'enfants et âges -->
+                <div class="rangee-champs">
+                    <div>
+                        <label for="nbEnfants">Nombre d'enfants <span style="color:#c97d7d;">*</span></label>
+                        <input type="number" id="nbEnfants" name="nbEnfants" min="1" max="10" placeholder="Ex: 2" required>
+                    </div>
+                    <div>
+                        <label for="agesEnfants">Âge(s) des enfants <span style="color:#c97d7d;">*</span></label>
+                        <input type="text" id="agesEnfants" name="agesEnfants" placeholder="Ex: 3 ans, 6 ans" required>
+                    </div>
+                </div>
+
+                <!-- Message complémentaire -->
+                <div>
+                    <label for="message">Informations complémentaires</label>
+                    <textarea id="message" name="message" placeholder="Allergies, consignes particulières, animaux de compagnie, etc."></textarea>
+                </div>
+
+                <button type="submit" class="bouton-envoyer">
+                    <i class="fa-solid fa-paper-plane"></i> Envoyer ma demande
                 </button>
+            </form>
+
+            <!-- Message de confirmation (caché par défaut) -->
+            <div class="confirmation" id="messageConfirmation">
+                <i class="fa-solid fa-circle-check"></i>
+                <p><strong>Merci pour votre demande !</strong></p>
+                <p>Léa a bien reçu votre message et vous recontactera très rapidement pour confirmer la réservation.</p>
+                <p style="font-size:0.85rem;margin-top:8px;">(Ceci est une simulation – le formulaire n'envoie pas encore d'email.)</p>
             </div>
+        </section>
 
-            <!-- SERVICES -->
-            <div id="services" class="mb-16">
-                <h3 class="text-2xl font-semibold mb-8 text-center">Mes services</h3>
-                <div class="grid md:grid-cols-3 gap-6">
-                    <!-- Service 1 -->
-                    <div class="service-card bg-white rounded-3xl p-8 text-center border border-transparent hover:border-[#a8d5ba]">
-                        <div class="text-5xl mb-6">🌅</div>
-                        <h4 class="font-bold text-xl mb-3">Accompagnement matin</h4>
-                        <p class="text-gray-600">Préparation et accompagnement à l'école ou à la crèche.</p>
-                    </div>
-                    <!-- Service 2 -->
-                    <div class="service-card bg-white rounded-3xl p-8 text-center border border-transparent hover:border-[#a8d5ba]">
-                        <div class="text-5xl mb-6">🌙</div>
-                        <h4 class="font-bold text-xl mb-3">Récupération soir</h4>
-                        <p class="text-gray-600">Récupération à la sortie de l'école et retour à domicile.</p>
-                    </div>
-                    <!-- Service 3 -->
-                    <div class="service-card bg-white rounded-3xl p-8 text-center border border-transparent hover:border-[#a8d5ba]">
-                        <div class="text-5xl mb-6">🏠</div>
-                        <h4 class="font-bold text-xl mb-3">Garde à domicile</h4>
-                        <p class="text-gray-600">Jeux, goûter, devoirs, coucher selon vos consignes.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- DISPONIBILITES -->
-            <div id="dispos" class="mb-16">
-                <h3 class="text-2xl font-semibold mb-6">Disponibilités cette semaine</h3>
-                <div class="bg-white rounded-3xl p-8 overflow-x-auto">
-                    <table class="w-full min-w-[800px]">
-                        <thead>
-                            <tr class="border-b">
-                                <th class="py-4 text-left">Jour</th>
-                                <th class="py-4 text-center">Matin</th>
-                                <th class="py-4 text-center">Après-midi</th>
-                                <th class="py-4 text-center">Soir</th>
-                            </tr>
-                        </thead>
-                        <tbody class="text-sm">
-                            <tr class="border-b">
-                                <td class="py-4 font-medium">Lundi</td>
-                                <td class="text-center"><span class="slot-available px-4 py-1 rounded-2xl text-xs">7h30-9h</span></td>
-                                <td class="text-center text-gray-400">—</td>
-                                <td class="text-center"><span class="slot-available px-4 py-1 rounded-2xl text-xs">17h-20h</span></td>
-                            </tr>
-                            <tr class="border-b">
-                                <td class="py-4 font-medium">Mardi</td>
-                                <td class="text-center text-gray-400">—</td>
-                                <td class="text-center"><span class="slot-available px-4 py-1 rounded-2xl text-xs">15h-18h</span></td>
-                                <td class="text-center"><span class="slot-available px-4 py-1 rounded-2xl text-xs">18h-21h</span></td>
-                            </tr>
-                            <tr class="border-b">
-                                <td class="py-4 font-medium">Mercredi</td>
-                                <td class="text-center"><span class="slot-available px-4 py-1 rounded-2xl text-xs">8h-10h</span></td>
-                                <td class="text-center"><span class="slot-available px-4 py-1 rounded-2xl text-xs">14h-19h</span></td>
-                                <td class="text-center text-gray-400">—</td>
-                            </tr>
-                            <tr class="border-b">
-                                <td class="py-4 font-medium">Jeudi</td>
-                                <td class="text-center"><span class="slot-available px-4 py-1 rounded-2xl text-xs">7h45-9h</span></td>
-                                <td class="text-center text-gray-400">—</td>
-                                <td class="text-center"><span class="slot-available px-4 py-1 rounded-2xl text-xs">16h30-20h</span></td>
-                            </tr>
-                            <tr>
-                                <td class="py-4 font-medium">Vendredi</td>
-                                <td class="text-center text-gray-400">—</td>
-                                <td class="text-center"><span class="slot-available px-4 py-1 rounded-2xl text-xs">15h-18h</span></td>
-                                <td class="text-center"><span class="slot-available px-4 py-1 rounded-2xl text-xs">18h-21h</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    <p class="text-xs text-gray-500 mt-6 text-center">Les créneaux sont donnés à titre indicatif. Merci de me contacter pour confirmer.</p>
-                </div>
-            </div>
-
-            <!-- TARIFS -->
-            <div id="tarifs" class="mb-16">
-                <h3 class="text-2xl font-semibold mb-8">Tarifs transparents</h3>
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div class="bg-white rounded-3xl p-8">
-                        <div class="flex justify-between items-baseline mb-8">
-                            <div>
-                                <span class="text-5xl font-bold">12€</span>
-                                <span class="text-gray-500">/heure</span>
-                            </div>
-                            <div class="text-right">
-                                <span class="block text-sm">Minimum</span>
-                                <span class="font-semibold">2 heures</span>
-                            </div>
-                        </div>
-                        <ul class="space-y-4 text-sm">
-                            <li class="flex items-center gap-3"><i class="fas fa-check text-[#a8d5ba]"></i> Accompagnement école</li>
-                            <li class="flex items-center gap-3"><i class="fas fa-check text-[#a8d5ba]"></i> Garde à domicile</li>
-                            <li class="flex items-center gap-3"><i class="fas fa-check text-[#a8d5ba]"></i> Jeux et activités</li>
-                        </ul>
-                    </div>
-                    <div class="bg-white rounded-3xl p-8 flex flex-col justify-between">
-                        <div>
-                            <p class="font-medium mb-4">Suppléments possibles :</p>
-                            <ul class="text-sm space-y-2">
-                                <li>• +2€ / enfant supplémentaire</li>
-                                <li>• Soirée après 21h : tarif à discuter</li>
-                            </ul>
-                        </div>
-                        <p class="text-xs bg-[#f5e8d3] p-4 rounded-2xl mt-8">
-                            Tarif à discuter selon la durée, le nombre d'enfants et les besoins spécifiques.
-                        </p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- FORMULAIRE -->
-            <div class="bg-white rounded-3xl shadow-xl p-10">
-                <h3 class="text-3xl font-semibold mb-8 text-center">Ma demande de réservation</h3>
-                
-                <form id="bookingForm" onsubmit="submitForm(event)" class="space-y-8">
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div>
-                            <label class="block text-sm font-medium mb-2">Prénom et Nom des parents</label>
-                            <input type="text" required 
-                                   class="w-full px-5 py-4 border border-gray-200 rounded-2xl focus:outline-none focus:border-[#f4a8b8]">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium mb-2">Téléphone</label>
-                            <input type="tel" required 
-                                   class="w-full px-5 py-4 border border-gray-200 rounded-2xl focus:outline-none focus:border-[#f4a8b8]">
-                        </div>
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-medium mb-2">Adresse complète du domicile</label>
-                        <input type="text" required placeholder="Numéro, rue, code postal, ville"
-                               class="w-full px-5 py-4 border border-gray-200 rounded-2xl focus:outline-none focus:border-[#f4a8b8]">
-                    </div>
-
-                    <div class="grid md:grid-cols-3 gap-6">
-                        <div>
-                            <label class="block text-sm font-medium mb-2">Date souhaitée</label>
-                            <input type="date" required 
-                                   class="w-full px-5 py-4 border border-gray-200 rounded-2xl focus:outline-none focus:border-[#f4a8b8]">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium mb-2">Heure de début</label>
-                            <select required class="w-full px-5 py-4 border border-gray-200 rounded-2xl focus:outline-none focus:border-[#f4a8b8]">
-                                <option value="">Choisir</option>
-                                <!-- Heures au quart d'heure -->
-                                <option value="07:00">07:00</option>
-                                <option value="07:15">07:15</option>
-                                <option value="07:30">07:30</option>
-                                <option value="07:45">07:45</option>
-                                <option value="08:00">08:00</option>
-                                <!-- ... (simplifié, JS peut compléter) -->
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium mb-2">Heure de fin</label>
-                            <select required class="w-full px-5 py-4 border border-gray-200 rounded-2xl focus:outline-none focus:border-[#f4a8b8]">
-                                <option value="">Choisir</option>
-                                <option value="18:00">18:00</option>
-                                <option value="18:15">18:15</option>
-                                <option value="18:30">18:30</option>
-                                <option value="19:00">19:00</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="grid md:grid-cols-2 gap-6">
-                        <div>
-                            <label class="block text-sm font-medium mb-2">Type de service</label>
-                            <select required class="w-full px-5 py-4 border border-gray-200 rounded-2xl focus:outline-none focus:border-[#f4a8b8]">
-                                <option value="">Sélectionnez un service</option>
-                                <option value="matin">Accompagnement à l’école (matin)</option>
-                                <option value="soir">Récupération à l’école (soir)</option>
-                                <option value="garde">Garde à domicile</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium mb-2">Nombre d’enfants et âges</label>
-                            <input type="text" placeholder="Ex: 2 enfants (4 et 7 ans)" required
-                                   class="w-full px-5 py-4 border border-gray-200 rounded-2xl focus:outline-none focus:border-[#f4a8b8]">
-                        </div>
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-medium mb-2">Informations complémentaires (allergies, consignes...)</label>
-                        <textarea rows="4" 
-                                  class="w-full px-5 py-4 border border-gray-200 rounded-3xl focus:outline-none focus:border-[#f4a8b8]"></textarea>
-                    </div>
-
-                    <button type="submit"
-                            class="w-full bg-[#f4a8b8] hover:bg-[#e88a9f] text-white py-6 rounded-3xl text-lg font-semibold transition-colors flex items-center justify-center gap-3">
-                        <i class="fas fa-paper-plane"></i>
-                        Envoyer ma demande
-                    </button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer class="bg-gray-800 text-white py-12">
-        <div class="tail-container px-6 text-center">
-            <p class="mb-2">© 2026 Douce Garde • Léa</p>
-            <p class="text-sm text-gray-400">Un site fait avec ❤️ pour aider les parents</p>
-        </div>
-    </footer>
-
-    <!-- MODAL CONFIRMATION -->
-    <div id="successModal" class="hidden fixed inset-0 bg-black/70 flex items-center justify-center z-[100]">
-        <div class="bg-white rounded-3xl p-10 max-w-md text-center">
-            <div class="text-6xl mb-6">🎉</div>
-            <h3 class="text-3xl font-bold mb-4">Demande envoyée !</h3>
-            <p class="text-gray-600 mb-8">Merci ! Léa vous répondra très rapidement par téléphone.</p>
-            <button onclick="closeModal()" 
-                    class="bg-[#f4a8b8] text-white px-10 py-4 rounded-2xl font-medium">
-                Retour à l'accueil
-            </button>
-        </div>
+        <!-- Pied de page -->
+        <footer class="pied-page">
+            <p>© 2026 Léa – Baby-sitting de confiance | Site créé avec ❤️</p>
+        </footer>
     </div>
 
     <script>
-        // Tailwind script already loaded via CDN
+        // ===========================
+        // SCRIPT PRINCIPAL
+        // ===========================
 
-        function showReservation() {
-            document.getElementById('accueil').style.display = 'none';
-            document.getElementById('reservation-section').classList.add('active');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+        (function() {
+            // --- RÉFÉRENCES AUX ÉLÉMENTS DU DOM ---
+            const sectionAccueil = document.getElementById('accueil');
+            const sectionReservation = document.getElementById('reservation');
+            const boutonAllerReservation = document.getElementById('boutonAllerReservation');
+            const boutonRetourAccueil = document.getElementById('boutonRetourAccueil');
+            const formulaire = document.getElementById('formulaireReservation');
+            const messageConfirmation = document.getElementById('messageConfirmation');
 
-        function navigateToHome() {
-            document.getElementById('accueil').style.display = 'block';
-            document.getElementById('reservation-section').classList.remove('active');
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+            const selectHeureDebut = document.getElementById('heureDebut');
+            const selectHeureFin = document.getElementById('heureFin');
+            const inputDate = document.getElementById('dateSouhaitee');
 
-        function submitForm(e) {
-            e.preventDefault();
-            document.getElementById('successModal').classList.remove('hidden');
-            document.getElementById('successModal').classList.add('flex');
-        }
+            // --- GÉNÉRATION DES OPTIONS D'HEURES (toutes les 15 minutes, 00:00 à 23:45) ---
+            function genererOptionsHeures() {
+                const options = [];
+                for (let h = 0; h < 24; h++) {
+                    for (let m = 0; m < 60; m += 15) {
+                        const heure = String(h).padStart(2, '0');
+                        const minute = String(m).padStart(2, '0');
+                        const valeur = `${heure}:${minute}`;
+                        const affichage = `${heure}h${minute}`;
+                        options.push({ valeur, affichage });
+                    }
+                }
+                return options;
+            }
 
-        function closeModal() {
-            document.getElementById('successModal').classList.add('hidden');
-            document.getElementById('successModal').classList.remove('flex');
-            navigateToHome();
-            document.getElementById('bookingForm').reset();
-        }
+            function remplirSelectHeures(selectElement, options) {
+                // Garde l'option par défaut
+                selectElement.innerHTML = '<option value="">-- : --</option>';
+                options.forEach(opt => {
+                    const option = document.createElement('option');
+                    option.value = opt.valeur;
+                    option.textContent = opt.affichage;
+                    selectElement.appendChild(option);
+                });
+            }
 
-        // Initialisation
-        window.onload = function() {
-            // Rendre la section accueil visible par défaut
-            document.getElementById('accueil').style.display = 'block';
-            
-            // Amélioration responsive
-            console.log('%c✅ Site Douce Garde chargé avec succès !', 'color:#f4a8b8; font-size:14px');
-        };
+            const optionsHeures = genererOptionsHeures();
+            remplirSelectHeures(selectHeureDebut, optionsHeures);
+            remplirSelectHeures(selectHeureFin, optionsHeures);
 
-        // Permettre de modifier facilement les données (commentaires)
+            // --- DATE MINIMALE = AUJOURD'HUI ---
+            const aujourdHui = new Date().toISOString().split('T')[0];
+            inputDate.setAttribute('min', aujourdHui);
+
+            // --- TRANSITION VERS LA SECTION RÉSERVATION ---
+            function afficherReservation() {
+                sectionAccueil.classList.add('masquee');
+                sectionReservation.classList.add('visible');
+                // Scroll en haut pour voir le début de la réservation
+                sectionReservation.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+
+            function afficherAccueil() {
+                sectionReservation.classList.remove('visible');
+                sectionAccueil.classList.remove('masquee');
+                messageConfirmation.classList.remove('visible');
+                formulaire.style.display = ''; // Réaffiche le formulaire si masqué
+                formulaire.reset();
+                sectionAccueil.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+
+            boutonAllerReservation.addEventListener('click', afficherReservation);
+            boutonRetourAccueil.addEventListener('click', afficherAccueil);
+
+            // --- VALIDATION DU FORMULAIRE ET AFFICHAGE CONFIRMATION ---
+            formulaire.addEventListener('submit', function(e) {
+                e.preventDefault(); // Empêche l'envoi réel
+
+                // Vérifie que l'heure de fin est après l'heure de début
+                const debut = selectHeureDebut.value;
+                const fin = selectHeureFin.value;
+                if (debut && fin && debut >= fin) {
+                    alert(
+                        '⚠️ L\'heure de fin doit être après l\'heure de début. Veuillez vérifier les horaires.');
+                    return;
+                }
+
+                // Vérifie qu'une date future est sélectionnée
+                if (inputDate.value && inputDate.value < aujourdHui) {
+                    alert('⚠️ La date doit être à partir d\'aujourd\'hui.');
+                    return;
+                }
+
+                // Vérifie les champs obligatoires (le navigateur gère required, mais double vérification)
+                if (!formulaire.checkValidity()) {
+                    formulaire.reportValidity();
+                    return;
+                }
+
+                // Cache le formulaire et affiche la confirmation
+                formulaire.style.display = 'none';
+                messageConfirmation.classList.add('visible');
+                messageConfirmation.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            });
+
+            // --- RÉINITIALISER LE FORMULAIRE SI ON REVIENT (déjà fait dans afficherAccueil) ---
+            // --- PETIT PLUS : fermer la confirmation si on modifie un champ (pour réessayer) ---
+            const champsFormulaire = formulaire.querySelectorAll('input, select, textarea');
+            champsFormulaire.forEach(champ => {
+                champ.addEventListener('input', function() {
+                    if (messageConfirmation.classList.contains('visible')) {
+                        messageConfirmation.classList.remove('visible');
+                        formulaire.style.display = '';
+                    }
+                });
+            });
+
+            console.log('✅ Site de baby-sitting Léa prêt !');
+            console.log('📝 Pour modifier les disponibilités, cherche "MODE D\'EMPLOI" dans le HTML.');
+            console.log('📝 Pour changer les tarifs, cherche la section "bloc-tarifs".');
+            console.log('📝 Pour changer la photo, cherche "photo-placeholder" dans le HTML.');
+        })();
     </script>
+
 </body>
 </html>
