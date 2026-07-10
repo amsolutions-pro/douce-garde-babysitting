@@ -3,10 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Léa - Baby-sitting de confiance</title>
+    <title>Douce Garde — Baby-sitting de confiance avec Léa</title>
+    <meta name="description" content="Baby-sitting de confiance par Léa, lycéenne sérieuse : accompagnement à l'école le matin, récupération le soir et garde à domicile. Réservation simple par créneaux de 15 minutes, demande envoyée via WhatsApp.">
+    <meta name="theme-color" content="#f2d7d5">
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E🧸%3C/text%3E%3C/svg%3E">
+    <link rel="manifest" href="manifest.json">
+    <link rel="canonical" href="https://amsolutions-pro.github.io/douce-garde-babysitting/">
 
-    <!-- Font Awesome pour les icônes -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Partage réseaux sociaux (Open Graph / Twitter) -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Douce Garde — Baby-sitting de confiance avec Léa">
+    <meta property="og:description" content="Accompagnement à l'école, récupération le soir et garde à domicile. Réservez votre créneau en quelques clics, confirmation par WhatsApp.">
+    <meta property="og:url" content="https://amsolutions-pro.github.io/douce-garde-babysitting/">
+    <meta property="og:locale" content="fr_FR">
+    <meta name="twitter:card" content="summary">
+
+    <!-- Données structurées pour les moteurs de recherche -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Service",
+        "name": "Douce Garde — Baby-sitting avec Léa",
+        "serviceType": "Baby-sitting, accompagnement scolaire matin et soir, garde d'enfants à domicile",
+        "description": "Baby-sitting de confiance par Léa, lycéenne sérieuse : accompagnement à l'école le matin (7h-9h), récupération le soir (16h-19h) et garde à domicile. Réservation par créneaux de 15 minutes.",
+        "url": "https://amsolutions-pro.github.io/douce-garde-babysitting/",
+        "areaServed": { "@type": "Country", "name": "France" },
+        "offers": {
+            "@type": "Offer",
+            "price": "8",
+            "priceCurrency": "EUR",
+            "description": "8 € de l'heure, majoration de 2 €/h à partir de 20h, minimum 1 heure"
+        }
+    }
+    </script>
+
+    <!-- Font Awesome pour les icônes (chargé sans bloquer l'affichage) -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"></noscript>
 
     <style>
         /* ===========================
@@ -175,7 +209,7 @@
 
         .bouton-reserver {
             background: var(--rose-poudre-fonce);
-            color: var(--blanc);
+            color: #5a3535; /* contraste AA sur fond rose pastel */
             border: none;
             padding: 16px 40px;
             font-size: 1.2rem;
@@ -293,53 +327,123 @@
             line-height: 1.4;
         }
 
-        /* --- Bloc Planning --- */
-        .bloc-planning {
+        /* --- Bloc Créneaux (réservation par quart d'heure) --- */
+        .bloc-creneaux {
             background: var(--blanc);
             border-radius: var(--rayon-petit);
             padding: 20px;
             box-shadow: var(--ombre);
-            overflow-x: auto;
         }
-        .bloc-planning h3 {
+        .bloc-creneaux h3 {
             font-family: var(--font-titre);
-            margin-bottom: 12px;
+            margin-bottom: 6px;
             font-size: 1.2rem;
         }
-        .bloc-planning table {
-            width: 100%;
-            border-collapse: collapse;
-            min-width: 600px;
+        .aide-creneaux {
             font-size: 0.85rem;
+            color: var(--texte-clair);
+            margin-bottom: 14px;
         }
-        .bloc-planning th,
-        .bloc-planning td {
-            padding: 8px 6px;
+        .selecteur-jours {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            margin-bottom: 14px;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: thin;
+            scrollbar-color: #e8b4b0 transparent;
+        }
+        .selecteur-jours::-webkit-scrollbar {
+            height: 6px;
+        }
+        .selecteur-jours::-webkit-scrollbar-thumb {
+            background: #e8b4b0;
+            border-radius: 3px;
+        }
+        .selecteur-jours::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .bouton-jour {
+            flex: 0 0 auto;
+            border: 1.5px solid var(--bordure);
+            background: #fefcf9;
+            color: var(--texte);
+            border-radius: 12px;
+            padding: 8px 12px;
+            font-size: 0.8rem;
+            line-height: 1.3;
+            cursor: pointer;
             text-align: center;
-            border: 1px solid var(--bordure);
+            font-family: var(--font-texte);
+            transition: all 0.2s;
         }
-        .bloc-planning th {
-            background: var(--vert-eau);
-            color: #3b6b5e;
+        .bouton-jour .jour-semaine {
+            display: block;
             font-weight: 600;
-            font-size: 0.8rem;
-            white-space: nowrap;
+            text-transform: capitalize;
         }
-        .bloc-planning .disponible {
-            background: #e6f7ef;
+        .bouton-jour .jour-date {
+            display: block;
+            color: var(--texte-clair);
+            font-size: 0.75rem;
+        }
+        .bouton-jour.actif {
+            background: var(--vert-eau);
+            border-color: var(--vert-eau-fonce);
+        }
+        .bouton-jour.actif .jour-date {
+            color: #3b6b5e;
+        }
+        .fenetre-creneaux {
+            margin-bottom: 14px;
+        }
+        .titre-fenetre {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--texte-clair);
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .grille-creneaux {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 6px;
+        }
+        .creneau {
+            border: 1.5px solid #cde5db;
+            background: #f3faf7;
             color: #2d6a4f;
+            min-height: 44px; /* cible tactile confortable sur mobile */
+            border-radius: 8px;
+            padding: 8px 2px;
+            font-size: 0.85rem;
             font-weight: 500;
-            border-radius: 4px;
+            cursor: pointer;
+            font-family: var(--font-texte);
+            transition: all 0.15s;
         }
-        .bloc-planning .indisponible {
+        .creneau.occupe {
             background: #fcecea;
+            border-color: #f0d4d1;
             color: #c4a3a0;
-            font-size: 0.8rem;
+            cursor: not-allowed;
+            text-decoration: line-through;
+        }
+        .creneau.choisi {
+            background: var(--rose-poudre-fonce);
+            border-color: var(--rose-poudre-fonce);
+            color: var(--blanc);
+        }
+        .creneau:not(.occupe):hover {
+            transform: translateY(-1px);
         }
         .legende-planning {
             display: flex;
             gap: 15px;
-            margin-top: 10px;
+            margin-top: 6px;
             font-size: 0.8rem;
             color: var(--texte-clair);
             flex-wrap: wrap;
@@ -355,13 +459,88 @@
             border-radius: 3px;
             display: inline-block;
         }
-        .pastille-dispo {
-            background: #e6f7ef;
+        .pastille-libre {
+            background: #f3faf7;
             border: 1px solid #2d6a4f;
         }
-        .pastille-indispo {
+        .pastille-occupee {
             background: #fcecea;
             border: 1px solid #c4a3a0;
+        }
+        .pastille-choisie {
+            background: var(--rose-poudre-fonce);
+            border: 1px solid var(--rose-poudre-fonce);
+        }
+        .resume-selection {
+            margin-top: 14px;
+            background: #fefbf8;
+            border-left: 3px solid var(--rose-poudre-fonce);
+            border-radius: 8px;
+            padding: 12px 14px;
+            font-size: 0.95rem;
+        }
+        .resume-selection strong {
+            color: #3b6b5e;
+        }
+        .lien-annuler {
+            background: none;
+            border: none;
+            color: #a55c5c;
+            cursor: pointer;
+            font-size: 0.85rem;
+            padding: 0;
+            margin-left: 10px;
+            font-family: var(--font-texte);
+            text-decoration: underline;
+        }
+
+        /* --- Mode pro (gestion des indisponibilités, via l'adresse du site + #pro) --- */
+        .barre-pro {
+            display: none;
+            background: #4a4a4a;
+            color: #fff;
+            border-radius: var(--rayon-petit);
+            padding: 14px 16px;
+            font-size: 0.9rem;
+            flex-direction: column;
+            gap: 10px;
+        }
+        body.mode-pro .barre-pro {
+            display: flex;
+        }
+        .barre-pro .boutons-pro {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .barre-pro button {
+            border: none;
+            border-radius: 20px;
+            padding: 8px 14px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-family: var(--font-texte);
+            font-weight: 600;
+        }
+        .bouton-pro-principal {
+            background: var(--vert-eau-fonce);
+            color: #fff;
+        }
+        .bouton-pro-secondaire {
+            background: #6a6a6a;
+            color: #fff;
+        }
+        .etat-pro {
+            font-size: 0.8rem;
+            opacity: 0.85;
+        }
+        body.mode-pro .bloc-services,
+        body.mode-pro .bloc-tarifs,
+        body.mode-pro .formulaire-reservation {
+            display: none;
+        }
+        body.mode-pro .creneau.occupe {
+            cursor: pointer;
         }
 
         /* --- Bloc Tarifs --- */
@@ -461,7 +640,7 @@
         }
         .bouton-envoyer {
             background: var(--vert-eau-fonce);
-            color: var(--blanc);
+            color: #234d3c; /* contraste AA sur fond vert pastel */
             border: none;
             padding: 14px 30px;
             font-size: 1.1rem;
@@ -538,18 +717,163 @@
                 flex-direction: column;
                 gap: 10px;
             }
-            .bloc-planning table {
-                font-size: 0.7rem;
-                min-width: 500px;
+            .grille-creneaux {
+                gap: 5px;
             }
-            .bloc-planning th,
-            .bloc-planning td {
-                padding: 5px 3px;
+            .creneau {
+                font-size: 0.78rem;
+                padding: 7px 1px;
+            }
+        }
+        /* --- Connexion Google --- */
+        [hidden] {
+            display: none !important; /* sinon display:flex ci-dessous écrase l'attribut hidden */
+        }
+        .bloc-connexion {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            margin: 0 0 18px;
+            padding: 16px;
+            background: #fdf6f0;
+            border: 1px solid #f0e0d6;
+            border-radius: 14px;
+            text-align: center;
+        }
+        .bloc-connexion p {
+            font-size: 0.9rem;
+            color: #7d685c;
+            margin: 0;
+        }
+        .carte-profil {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+        }
+        .carte-profil img {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .carte-profil .infos-profil {
+            flex: 1;
+            text-align: left;
+            min-width: 0;
+        }
+        .carte-profil .infos-profil strong {
+            display: block;
+            color: #5a4a3f;
+        }
+        .carte-profil .infos-profil span {
+            font-size: 0.8rem;
+            color: #7d685c;
+            overflow-wrap: anywhere;
+        }
+        .badge-admin {
+            display: inline-block;
+            background: #a55c5c;
+            color: #fff;
+            font-size: 0.7rem;
+            padding: 2px 8px;
+            border-radius: 10px;
+            margin-left: 6px;
+            vertical-align: middle;
+        }
+        .bouton-deconnexion {
+            background: none;
+            border: 1px solid #d9c5b8;
+            color: #7d685c;
+            border-radius: 10px;
+            padding: 6px 12px;
+            font-size: 0.8rem;
+            cursor: pointer;
+        }
+        .bouton-deconnexion:hover {
+            background: #f5e9e1;
+        }
+        /* --- Lien d'évitement clavier --- */
+        .lien-evitement {
+            position: absolute;
+            left: -9999px;
+            top: 0;
+            background: #a55c5c;
+            color: #fff;
+            padding: 10px 18px;
+            border-radius: 0 0 10px 0;
+            z-index: 1000;
+            text-decoration: none;
+        }
+        .lien-evitement:focus {
+            left: 0;
+        }
+        /* --- Marque --- */
+        .marque {
+            font-family: var(--font-titre);
+            font-style: italic;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            color: #a55c5c;
+            margin-bottom: 4px;
+        }
+        /* --- FAQ --- */
+        .bloc-faq {
+            margin-top: 30px;
+            text-align: left;
+        }
+        .bloc-faq h2 {
+            text-align: center;
+            margin-bottom: 14px;
+        }
+        .bloc-faq details {
+            border-bottom: 1px solid var(--bordure);
+            padding: 12px 4px;
+            text-align: left;
+            width: 100%; /* la carte parente est en flex centré : sans ça, les questions rétrécissent */
+        }
+        .bloc-faq details:last-child {
+            border-bottom: none;
+        }
+        .bloc-faq summary {
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--texte);
+            list-style-position: inside;
+        }
+        .bloc-faq summary:hover {
+            color: #a55c5c;
+        }
+        .bloc-faq details p {
+            margin-top: 8px;
+            padding-left: 18px;
+            color: var(--texte-clair);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        /* --- Accessibilité --- */
+        .creneau:focus-visible,
+        .bouton-reserver:focus-visible,
+        .bouton-envoyer:focus-visible,
+        .jour:focus-visible {
+            outline: 3px solid #a55c5c;
+            outline-offset: 2px;
+        }
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
             }
         }
     </style>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
 </head>
 <body>
+    <a class="lien-evitement" href="#reservation" id="lienEvitement">Aller directement à la réservation</a>
 
     <div class="conteneur-site">
 
@@ -560,6 +884,7 @@
             <div class="logo-icone">
                 <i class="fa-solid fa-child-reaching"></i>
             </div>
+            <p class="marque" aria-hidden="true">Douce Garde</p>
             <h1 class="titre-principal">Léa, votre baby-sitter de confiance</h1>
             <p class="sous-titre">Douceur, sérieux et sourire au service de vos enfants</p>
 
@@ -588,6 +913,39 @@
             <button class="bouton-reserver" id="boutonAllerReservation" aria-label="Aller au formulaire de réservation">
                 <i class="fa-solid fa-calendar-check"></i> Réserver un baby-sitting
             </button>
+
+            <!-- Questions fréquentes des parents -->
+            <div class="carte-presentation bloc-faq">
+                <h2><i class="fa-solid fa-circle-question"></i> Questions fréquentes</h2>
+                <details>
+                    <summary>Comment se passe une première garde ?</summary>
+                    <p>Avant la première garde, je propose toujours une rencontre (en personne ou par téléphone)
+                    avec vous et vos enfants pour faire connaissance, noter vos consignes et répondre à vos questions.
+                    Vous restez joignables à tout moment pendant la garde.</p>
+                </details>
+                <details>
+                    <summary>Quels sont les tarifs ?</summary>
+                    <p>8 € de l'heure, avec un minimum d'une heure. Une majoration de 2 €/h s'applique après 20h.
+                    Le prix exact s'affiche automatiquement quand vous choisissez votre créneau — aucune surprise.</p>
+                </details>
+                <details>
+                    <summary>Comment réserver et confirmer ?</summary>
+                    <p>Choisissez votre créneau par quarts d'heure dans la grille, remplissez le petit formulaire,
+                    et votre demande part par WhatsApp. Je réponds rapidement pour confirmer. Rien n'est facturé
+                    en ligne : le règlement se fait directement entre nous après la garde.</p>
+                </details>
+                <details>
+                    <summary>Et en cas d'imprévu ou d'urgence ?</summary>
+                    <p>Je suis formée aux gestes de premiers secours et j'ai toujours vos numéros ainsi que ceux
+                    des urgences à portée de main. En cas de besoin, je vous appelle immédiatement.
+                    Si vous devez annuler, un simple message suffit — c'est sans frais.</p>
+                </details>
+                <details>
+                    <summary>Peut-on annuler ou modifier une réservation ?</summary>
+                    <p>Oui, il suffit de m'envoyer un message WhatsApp ou un SMS. On trouve ensemble un autre
+                    créneau si besoin.</p>
+                </details>
+            </div>
         </section>
 
         <!-- ========================
@@ -598,6 +956,18 @@
                 <i class="fa-solid fa-arrow-left"></i> Retour
             </button>
             <h2 class="titre-reservation">✨ Demande de réservation</h2>
+
+            <!-- Barre du mode pro : visible uniquement en ajoutant #pro à l'adresse du site -->
+            <div class="barre-pro" id="barrePro">
+                <div><i class="fa-solid fa-lock"></i> <strong>Mode pro</strong> — touche les créneaux pour les marquer occupés (rouge) ou libres (vert), puis enregistre.</div>
+                <div class="boutons-pro">
+                    <button type="button" class="bouton-pro-secondaire" id="boutonBloquerJour">Bloquer la journée</button>
+                    <button type="button" class="bouton-pro-secondaire" id="boutonLibererJour">Libérer la journée</button>
+                    <button type="button" class="bouton-pro-principal" id="boutonEnregistrerDispos"><i class="fa-solid fa-cloud-arrow-up"></i> Enregistrer</button>
+                    <button type="button" class="bouton-pro-secondaire" id="boutonCopierDispos">Copier le JSON</button>
+                </div>
+                <div class="etat-pro" id="etatPro">Chargement des disponibilités…</div>
+            </div>
 
             <!-- 1. Services proposés -->
             <div class="bloc-services">
@@ -618,78 +988,23 @@
                 </div>
             </div>
 
-            <!-- 2. Planning des disponibilités -->
-            <div class="bloc-planning">
-                <h3><i class="fa-solid fa-calendar-week"></i> Mes disponibilités habituelles</h3>
-                <!--
-                    MODE D'EMPLOI POUR MODIFIER LES DISPONIBILITÉS :
-                    - Chaque case <td> correspond à un créneau.
-                    - Ajoute la classe "disponible" pour un créneau où Léa est libre.
-                    - Ajoute la classe "indisponible" pour un créneau où elle n'est pas libre.
-                    - Tu peux changer le texte dans les cases (ex: "Dispo", "Occupée", ou laisser vide).
-                    - Les horaires exacts sont indicatifs, le planning donne une vue d'ensemble.
-                -->
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Créneau</th>
-                            <th>Lundi</th>
-                            <th>Mardi</th>
-                            <th>Mercredi</th>
-                            <th>Jeudi</th>
-                            <th>Vendredi</th>
-                            <th>Samedi</th>
-                            <th>Dimanche</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>7h – 9h</strong><br><small>(accompagnement)</small></td>
-                            <td class="disponible">Dispo</td>
-                            <td class="disponible">Dispo</td>
-                            <td class="indisponible">—</td>
-                            <td class="disponible">Dispo</td>
-                            <td class="disponible">Dispo</td>
-                            <td class="indisponible">—</td>
-                            <td class="indisponible">—</td>
-                        </tr>
-                        <tr>
-                            <td><strong>16h – 19h</strong><br><small>(récupération)</small></td>
-                            <td class="disponible">Dispo</td>
-                            <td class="disponible">Dispo</td>
-                            <td class="indisponible">—</td>
-                            <td class="disponible">Dispo</td>
-                            <td class="disponible">Dispo</td>
-                            <td class="indisponible">—</td>
-                            <td class="indisponible">—</td>
-                        </tr>
-                        <tr>
-                            <td><strong>13h – 18h</strong><br><small>(garde mercredi)</small></td>
-                            <td class="indisponible">—</td>
-                            <td class="indisponible">—</td>
-                            <td class="disponible">Dispo</td>
-                            <td class="indisponible">—</td>
-                            <td class="indisponible">—</td>
-                            <td class="indisponible">—</td>
-                            <td class="indisponible">—</td>
-                        </tr>
-                        <tr>
-                            <td><strong>9h – 18h</strong><br><small>(garde samedi)</small></td>
-                            <td class="indisponible">—</td>
-                            <td class="indisponible">—</td>
-                            <td class="indisponible">—</td>
-                            <td class="indisponible">—</td>
-                            <td class="indisponible">—</td>
-                            <td class="disponible">Dispo</td>
-                            <td class="indisponible">—</td>
-                        </tr>
-                    </tbody>
-                </table>
+            <!-- 2. Choix du jour et des quarts d'heure -->
+            <!--
+                Les créneaux occupés viennent du fichier "disponibilites.json" du dépôt.
+                Pour les modifier : ouvrir le site en ajoutant #pro à la fin de l'adresse
+                (mode pro), cliquer les créneaux, puis "Enregistrer".
+            -->
+            <div class="bloc-creneaux" id="blocCreneaux">
+                <h3><i class="fa-solid fa-calendar-week"></i> Choisissez votre créneau</h3>
+                <p class="aide-creneaux">Choisissez un jour, puis touchez le premier et le dernier quart d'heure souhaités : la plage se sélectionne toute seule et le prix s'affiche.</p>
+                <div class="selecteur-jours" id="selecteurJours"></div>
+                <div id="conteneurFenetres"></div>
                 <div class="legende-planning">
-                    <span><span class="pastille pastille-dispo"></span> Disponible</span>
-                    <span><span class="pastille pastille-indispo"></span> Non disponible</span>
-                    <span style="margin-left:auto; font-style:italic;">Planning indicatif – contactez-moi pour confirmer</span>
+                    <span><span class="pastille pastille-libre"></span> Libre</span>
+                    <span><span class="pastille pastille-occupee"></span> Occupé</span>
+                    <span><span class="pastille pastille-choisie"></span> Votre sélection</span>
                 </div>
+                <div class="resume-selection" id="resumeSelection" aria-live="polite" hidden></div>
             </div>
 
             <!-- 3. Tarifs -->
@@ -699,7 +1014,7 @@
                     <li><i class="fa-solid fa-clock"></i> <strong>Tarif horaire : 8 € / heure</strong> (tout type de service)</li>
                     <li><i class="fa-solid fa-hourglass-half"></i> <strong>Minimum : 1 heure</strong> par réservation</li>
                     <li><i class="fa-solid fa-moon"></i> <strong>Forfait soirée (après 20h) :</strong> +2 € / heure</li>
-                    <li><i class="fa-solid fa-calendar-day"></i> <strong>Forfait journée complète :</strong> 55 € (8h, soit ~6,90 €/h)</li>
+                    <li><i class="fa-solid fa-calendar-day"></i> <strong>Forfait journée complète :</strong> 55 € (8h, soit ~6,90 €/h) — sur demande par WhatsApp, en dehors des créneaux de la grille (vacances, week-end…)</li>
                 </ul>
                 <div class="note-tarif">
                     <i class="fa-solid fa-circle-info"></i>
@@ -712,57 +1027,52 @@
             <form class="formulaire-reservation" id="formulaireReservation" novalidate>
                 <h3><i class="fa-solid fa-paper-plane"></i> Envoyez votre demande</h3>
 
+                <!-- Connexion Google : pré-remplit le formulaire et mémorise vos infos -->
+                <div class="bloc-connexion" id="blocConnexion" hidden>
+                    <div id="zoneBoutonGoogle">
+                        <p>Connectez-vous avec Google pour ne pas ressaisir vos informations à chaque fois :</p>
+                        <div id="boutonGoogle"></div>
+                    </div>
+                    <div class="carte-profil" id="carteProfil" hidden>
+                        <img id="photoProfil" src="" alt="" referrerpolicy="no-referrer">
+                        <div class="infos-profil">
+                            <strong><span id="nomProfil"></span><span class="badge-admin" id="badgeAdmin" hidden>Admin</span></strong>
+                            <span id="emailProfil"></span>
+                        </div>
+                        <button type="button" class="bouton-deconnexion" id="boutonDeconnexion">Se déconnecter</button>
+                    </div>
+                </div>
+
                 <!-- Nom et prénom -->
                 <div class="rangee-champs">
                     <div>
-                        <label for="prenom">Prénom <span style="color:#c97d7d;">*</span></label>
+                        <label for="prenom">Prénom <span style="color:#a55c5c;">*</span></label>
                         <input type="text" id="prenom" name="prenom" placeholder="Votre prénom" required autocomplete="given-name">
                     </div>
                     <div>
-                        <label for="nom">Nom <span style="color:#c97d7d;">*</span></label>
+                        <label for="nom">Nom <span style="color:#a55c5c;">*</span></label>
                         <input type="text" id="nom" name="nom" placeholder="Votre nom" required autocomplete="family-name">
                     </div>
                 </div>
 
                 <!-- Téléphone -->
                 <div>
-                    <label for="telephone">Téléphone <span style="color:#c97d7d;">*</span></label>
-                    <input type="tel" id="telephone" name="telephone" placeholder="06 12 34 56 78" required autocomplete="tel">
+                    <label for="telephone">Téléphone <span style="color:#a55c5c;">*</span></label>
+                    <input type="tel" id="telephone" name="telephone" placeholder="06 12 34 56 78" required autocomplete="tel" inputmode="tel" pattern="^(\+33\s?|0)[1-9]([ .\-]?\d{2}){4}$" title="Numéro français : 06 12 34 56 78 ou +33 6 12 34 56 78">
                 </div>
 
                 <!-- Adresse -->
                 <div>
-                    <label for="adresse">Adresse complète du domicile <span style="color:#c97d7d;">*</span></label>
+                    <label for="adresse">Adresse complète du domicile <span style="color:#a55c5c;">*</span></label>
                     <input type="text" id="adresse" name="adresse" placeholder="Numéro, rue, code postal, ville" required autocomplete="street-address">
                 </div>
 
-                <!-- Date souhaitée -->
-                <div>
-                    <label for="dateSouhaitee">Date souhaitée <span style="color:#c97d7d;">*</span></label>
-                    <input type="date" id="dateSouhaitee" name="dateSouhaitee" required>
-                </div>
-
-                <!-- Heures de début et fin -->
-                <div class="rangee-champs">
-                    <div>
-                        <label for="heureDebut">Heure de début <span style="color:#c97d7d;">*</span></label>
-                        <select id="heureDebut" name="heureDebut" required>
-                            <option value="">-- : --</option>
-                            <!-- Généré dynamiquement en JS (toutes les 15 min) -->
-                        </select>
-                    </div>
-                    <div>
-                        <label for="heureFin">Heure de fin <span style="color:#c97d7d;">*</span></label>
-                        <select id="heureFin" name="heureFin" required>
-                            <option value="">-- : --</option>
-                            <!-- Généré dynamiquement en JS -->
-                        </select>
-                    </div>
-                </div>
+                <!-- Le jour et les heures sont choisis dans la grille de créneaux ci-dessus -->
+                <div class="resume-selection" id="recapCreneauFormulaire" hidden></div>
 
                 <!-- Type de service -->
                 <div>
-                    <label for="typeService">Type de service <span style="color:#c97d7d;">*</span></label>
+                    <label for="typeService">Type de service <span style="color:#a55c5c;">*</span></label>
                     <select id="typeService" name="typeService" required>
                         <option value="">-- Choisissez un service --</option>
                         <option value="accompagnement-matin">Accompagnement à l'école (matin)</option>
@@ -774,11 +1084,11 @@
                 <!-- Nombre d'enfants et âges -->
                 <div class="rangee-champs">
                     <div>
-                        <label for="nbEnfants">Nombre d'enfants <span style="color:#c97d7d;">*</span></label>
+                        <label for="nbEnfants">Nombre d'enfants <span style="color:#a55c5c;">*</span></label>
                         <input type="number" id="nbEnfants" name="nbEnfants" min="1" max="10" placeholder="Ex: 2" required>
                     </div>
                     <div>
-                        <label for="agesEnfants">Âge(s) des enfants <span style="color:#c97d7d;">*</span></label>
+                        <label for="agesEnfants">Âge(s) des enfants <span style="color:#a55c5c;">*</span></label>
                         <input type="text" id="agesEnfants" name="agesEnfants" placeholder="Ex: 3 ans, 6 ans" required>
                     </div>
                 </div>
@@ -790,22 +1100,22 @@
                 </div>
 
                 <button type="submit" class="bouton-envoyer">
-                    <i class="fa-solid fa-paper-plane"></i> Envoyer ma demande
+                    <i class="fa-brands fa-whatsapp"></i> Envoyer ma demande par WhatsApp
                 </button>
             </form>
 
             <!-- Message de confirmation (caché par défaut) -->
             <div class="confirmation" id="messageConfirmation">
-                <i class="fa-solid fa-circle-check"></i>
-                <p><strong>Merci pour votre demande !</strong></p>
-                <p>Léa a bien reçu votre message et vous recontactera très rapidement pour confirmer la réservation.</p>
-                <p style="font-size:0.85rem;margin-top:8px;">(Ceci est une simulation – le formulaire n'envoie pas encore d'email.)</p>
+                <i class="fa-brands fa-whatsapp"></i>
+                <p><strong>Votre demande est prête !</strong></p>
+                <p>WhatsApp s'est ouvert avec votre message de réservation déjà rédigé : il ne reste qu'à appuyer sur « Envoyer ». Léa vous répondra très rapidement pour confirmer.</p>
+                <p style="font-size:0.85rem;margin-top:8px;">WhatsApp ne s'est pas ouvert ? Vérifiez qu'il est installé, ou envoyez un SMS au <span id="numeroSecours"></span>.</p>
             </div>
         </section>
 
         <!-- Pied de page -->
         <footer class="pied-page">
-            <p>© 2026 Léa – Baby-sitting de confiance | Site créé avec ❤️</p>
+            <p>© 2026 Douce Garde — Baby-sitting de confiance avec Léa | Site créé avec ❤️</p>
         </footer>
     </div>
 
@@ -815,6 +1125,35 @@
         // ===========================
 
         (function() {
+            // ===========================
+            // CONFIGURATION (modifiable)
+            // ===========================
+            // Numéro WhatsApp qui reçoit les demandes, stocké À L'ENVERS pour ne pas
+            // apparaître en clair dans le code source (les robots qui collectent les
+            // numéros ne le reconnaissent pas). Format international sans + ni espaces.
+            const NUMERO_WHATSAPP = '47488757733'.split('').reverse().join('');
+            const FENETRES = [
+                { icone: 'fa-sun', label: 'Matin (7h – 9h)', debut: '07:00', fin: '09:00' },
+                { icone: 'fa-cloud-moon', label: 'Fin de journée (16h – 19h)', debut: '16:00', fin: '19:00' }
+            ];
+            const NB_JOURS_AFFICHES = 14;
+            const TARIF_HORAIRE = 8;      // € / heure
+            const MAJORATION_SOIREE = 2;  // € / heure en plus à partir de 20h
+            const MINIMUM_FACTURE = 8;    // minimum 1 heure par réservation
+            const FICHIER_DISPOS = 'disponibilites.json';
+            const DEPOT_GITHUB = 'amsolutions-pro/douce-garde-babysitting';
+            // Connexion Google : créer un "ID client OAuth" sur https://console.cloud.google.com/apis/credentials
+            // (type "Application Web", origine autorisée : https://amsolutions-pro.github.io) puis coller l'ID ici.
+            const GOOGLE_CLIENT_ID = 'REMPLACER_PAR_ID_CLIENT.apps.googleusercontent.com';
+            // Empreintes SHA-256 des comptes Google admin (mode pro automatique).
+            // L'adresse e-mail elle-même n'apparaît jamais dans le code : pour ajouter
+            // un compte, ouvrir la console du navigateur sur le site et taper
+            //   await empreinteEmail('adresse@exemple.com')
+            // puis coller le résultat ci-dessous.
+            const EMPREINTES_ADMIN = [
+                'f71493438a6d99546cc05fc895c2dc14b23a258d5f86873a90711107880ba3fb'
+            ];
+
             // --- RÉFÉRENCES AUX ÉLÉMENTS DU DOM ---
             const sectionAccueil = document.getElementById('accueil');
             const sectionReservation = document.getElementById('reservation');
@@ -822,100 +1161,274 @@
             const boutonRetourAccueil = document.getElementById('boutonRetourAccueil');
             const formulaire = document.getElementById('formulaireReservation');
             const messageConfirmation = document.getElementById('messageConfirmation');
+            const blocCreneaux = document.getElementById('blocCreneaux');
+            const selecteurJours = document.getElementById('selecteurJours');
+            const conteneurFenetres = document.getElementById('conteneurFenetres');
+            const resumeSelection = document.getElementById('resumeSelection');
+            const recapCreneauFormulaire = document.getElementById('recapCreneauFormulaire');
+            const etatPro = document.getElementById('etatPro');
 
-            const selectHeureDebut = document.getElementById('heureDebut');
-            const selectHeureFin = document.getElementById('heureFin');
-            const inputDate = document.getElementById('dateSouhaitee');
+            // --- ÉTAT ---
+            let modePro = window.location.hash === '#pro';
+            let modeProInitialise = false;
+            let occupe = {};        // { 'AAAA-MM-JJ': ['07:00', '07:15', ...] }
+            let jourActif = null;   // 'AAAA-MM-JJ'
+            let selection = null;   // { jour, iFenetre, debut, fin } (indices de créneaux)
 
-            // --- GÉNÉRATION DES OPTIONS D'HEURES (toutes les 15 minutes, 00:00 à 23:45) ---
-            function genererOptionsHeures() {
-                const options = [];
-                for (let h = 0; h < 24; h++) {
-                    for (let m = 0; m < 60; m += 15) {
-                        const heure = String(h).padStart(2, '0');
-                        const minute = String(m).padStart(2, '0');
-                        const valeur = `${heure}:${minute}`;
-                        const affichage = `${heure}h${minute}`;
-                        options.push({ valeur, affichage });
-                    }
+            // --- OUTILS DATES / HEURES ---
+            function dateISO(d) {
+                return d.getFullYear() + '-' +
+                    String(d.getMonth() + 1).padStart(2, '0') + '-' +
+                    String(d.getDate()).padStart(2, '0');
+            }
+            function enMinutes(hm) {
+                const [h, m] = hm.split(':').map(Number);
+                return h * 60 + m;
+            }
+            function formatHeure(totalMinutes) {
+                const h = Math.floor(totalMinutes / 60);
+                const m = totalMinutes % 60;
+                return h + 'h' + String(m).padStart(2, '0');
+            }
+            function creneauxFenetre(iFen) {
+                const f = FENETRES[iFen];
+                const liste = [];
+                for (let m = enMinutes(f.debut); m < enMinutes(f.fin); m += 15) {
+                    liste.push(String(Math.floor(m / 60)).padStart(2, '0') + ':' + String(m % 60).padStart(2, '0'));
                 }
-                return options;
+                return liste;
+            }
+            const aujourdHuiISO = dateISO(new Date());
+
+            // Un créneau est bloqué s'il est marqué occupé, ou déjà passé aujourd'hui
+            function estBloque(jour, hm) {
+                if ((occupe[jour] || []).includes(hm)) return true;
+                if (!modePro && jour === aujourdHuiISO) {
+                    const maintenant = new Date();
+                    if (enMinutes(hm) + 15 <= maintenant.getHours() * 60 + maintenant.getMinutes()) return true;
+                }
+                return false;
+            }
+            function plageLibre(jour, iFen, a, b) {
+                const cles = creneauxFenetre(iFen);
+                for (let i = a; i <= b; i++) {
+                    if (estBloque(jour, cles[i])) return false;
+                }
+                return true;
             }
 
-            function remplirSelectHeures(selectElement, options) {
-                // Garde l'option par défaut
-                selectElement.innerHTML = '<option value="">-- : --</option>';
-                options.forEach(opt => {
-                    const option = document.createElement('option');
-                    option.value = opt.valeur;
-                    option.textContent = opt.affichage;
-                    selectElement.appendChild(option);
+            // --- SÉLECTEUR DE JOURS (14 prochains jours) ---
+            const formatJourCourt = new Intl.DateTimeFormat('fr-FR', { weekday: 'short' });
+            const formatDateCourte = new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'short' });
+            const formatDateLongue = new Intl.DateTimeFormat('fr-FR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
+
+            function afficherJours() {
+                selecteurJours.innerHTML = '';
+                for (let i = 0; i < NB_JOURS_AFFICHES; i++) {
+                    const d = new Date();
+                    d.setDate(d.getDate() + i);
+                    const iso = dateISO(d);
+                    const bouton = document.createElement('button');
+                    bouton.type = 'button';
+                    bouton.className = 'bouton-jour' + (iso === jourActif ? ' actif' : '');
+                    bouton.innerHTML = '<span class="jour-semaine">' + (i === 0 ? "auj." : formatJourCourt.format(d)) + '</span>' +
+                        '<span class="jour-date">' + formatDateCourte.format(d) + '</span>';
+                    bouton.addEventListener('click', function() {
+                        jourActif = iso;
+                        afficherJours();
+                        afficherGrilles();
+                    });
+                    selecteurJours.appendChild(bouton);
+                }
+            }
+
+            // --- GRILLES DE QUARTS D'HEURE ---
+            function afficherGrilles() {
+                conteneurFenetres.innerHTML = '';
+                FENETRES.forEach(function(f, iFen) {
+                    const bloc = document.createElement('div');
+                    bloc.className = 'fenetre-creneaux';
+                    const titre = document.createElement('div');
+                    titre.className = 'titre-fenetre';
+                    titre.innerHTML = '<i class="fa-solid ' + f.icone + '"></i> ' + f.label;
+                    bloc.appendChild(titre);
+
+                    const grille = document.createElement('div');
+                    grille.className = 'grille-creneaux';
+                    creneauxFenetre(iFen).forEach(function(hm, idx) {
+                        const bouton = document.createElement('button');
+                        bouton.type = 'button';
+                        bouton.className = 'creneau';
+                        bouton.textContent = formatHeure(enMinutes(hm));
+                        const maintenant = new Date();
+                        const passe = jourActif === dateISO(maintenant) &&
+                            enMinutes(hm) <= maintenant.getHours() * 60 + maintenant.getMinutes();
+                        const bloque = estBloque(jourActif, hm) || (passe && !modePro);
+                        if (bloque) {
+                            bouton.classList.add('occupe');
+                            bouton.setAttribute('aria-label', formatHeure(enMinutes(hm)) + ', créneau occupé');
+                            if (!modePro) bouton.disabled = true;
+                        }
+                        if (selection && selection.jour === jourActif && selection.iFenetre === iFen &&
+                            idx >= selection.debut && idx <= selection.fin) {
+                            bouton.classList.add('choisi');
+                            bouton.setAttribute('aria-pressed', 'true');
+                        } else if (!bloque) {
+                            bouton.setAttribute('aria-pressed', 'false');
+                        }
+                        bouton.addEventListener('click', function() {
+                            if (modePro) { clicCreneauPro(iFen, idx); } else { clicCreneauParent(iFen, idx); }
+                        });
+                        grille.appendChild(bouton);
+                    });
+                    bloc.appendChild(grille);
+                    conteneurFenetres.appendChild(bloc);
                 });
             }
 
-            const optionsHeures = genererOptionsHeures();
-            remplirSelectHeures(selectHeureDebut, optionsHeures);
-            remplirSelectHeures(selectHeureFin, optionsHeures);
+            // --- SÉLECTION CÔTÉ PARENT (toucher le premier puis le dernier quart d'heure) ---
+            function clicCreneauParent(iFen, idx) {
+                const cles = creneauxFenetre(iFen);
+                if (estBloque(jourActif, cles[idx])) return;
 
-            // --- DATE MINIMALE = AUJOURD'HUI ---
-            const aujourdHui = new Date().toISOString().split('T')[0];
-            inputDate.setAttribute('min', aujourdHui);
+                if (!selection || selection.jour !== jourActif || selection.iFenetre !== iFen) {
+                    selection = { jour: jourActif, iFenetre: iFen, debut: idx, fin: idx };
+                } else if (idx === selection.debut && idx === selection.fin) {
+                    selection = null; // re-toucher l'unique créneau choisi = tout désélectionner
+                } else if (idx < selection.debut) {
+                    if (plageLibre(jourActif, iFen, idx, selection.fin)) selection.debut = idx;
+                    else selection = { jour: jourActif, iFenetre: iFen, debut: idx, fin: idx };
+                } else if (idx > selection.fin) {
+                    if (plageLibre(jourActif, iFen, selection.debut, idx)) selection.fin = idx;
+                    else selection = { jour: jourActif, iFenetre: iFen, debut: idx, fin: idx };
+                } else {
+                    selection.fin = idx; // clic à l'intérieur de la plage = raccourcir
+                }
+                afficherGrilles();
+                majResume();
+            }
 
-            // --- TRANSITION VERS LA SECTION RÉSERVATION ---
+            function detailsSelection() {
+                const cles = creneauxFenetre(selection.iFenetre);
+                const minDebut = enMinutes(cles[selection.debut]);
+                const minFin = enMinutes(cles[selection.fin]) + 15;
+                const duree = minFin - minDebut;
+                let prix = 0;
+                for (let i = selection.debut; i <= selection.fin; i++) {
+                    const m = enMinutes(cles[i]);
+                    prix += (TARIF_HORAIRE + (m >= 20 * 60 ? MAJORATION_SOIREE : 0)) / 4;
+                }
+                const minimumApplique = prix < MINIMUM_FACTURE;
+                prix = Math.max(prix, MINIMUM_FACTURE);
+                const [annee, mois, jour] = selection.jour.split('-').map(Number);
+                return {
+                    dateTexte: formatDateLongue.format(new Date(annee, mois - 1, jour)),
+                    heureDebut: formatHeure(minDebut),
+                    heureFin: formatHeure(minFin),
+                    dureeTexte: (duree >= 60 ? Math.floor(duree / 60) + 'h' + (duree % 60 ? String(duree % 60).padStart(2, '0') : '') : duree + ' min'),
+                    prix: prix,
+                    minimumApplique: minimumApplique
+                };
+            }
+
+            function majResume() {
+                if (!selection) {
+                    resumeSelection.hidden = true;
+                    recapCreneauFormulaire.hidden = true;
+                    return;
+                }
+                const d = detailsSelection();
+                const texte = '<strong>' + d.dateTexte + '</strong>, de <strong>' + d.heureDebut + '</strong> à <strong>' +
+                    d.heureFin + '</strong> (' + d.dureeTexte + ') — estimation : <strong>' + d.prix + ' €</strong>' +
+                    (d.minimumApplique ? ' <small>(minimum 1 h facturée)</small>' : '');
+                resumeSelection.innerHTML = texte + '<button type="button" class="lien-annuler" id="boutonAnnulerSelection">✕ annuler</button>';
+                resumeSelection.hidden = false;
+                recapCreneauFormulaire.innerHTML = '<i class="fa-solid fa-calendar-check"></i> Créneau choisi : ' + texte;
+                recapCreneauFormulaire.hidden = false;
+            }
+
+            resumeSelection.addEventListener('click', function(e) {
+                if (e.target.closest('#boutonAnnulerSelection')) {
+                    selection = null;
+                    afficherGrilles();
+                    majResume();
+                }
+            });
+
+            // --- CHARGEMENT DES DISPONIBILITÉS ---
+            function chargerDispos() {
+                return fetch(FICHIER_DISPOS + '?t=' + Date.now(), { cache: 'no-store' })
+                    .then(function(rep) { return rep.ok ? rep.json() : { occupe: {} }; })
+                    .then(function(donnees) { occupe = donnees.occupe || {}; })
+                    .catch(function() { occupe = {}; });
+            }
+
+            // --- TRANSITIONS ACCUEIL <-> RÉSERVATION ---
             function afficherReservation() {
                 sectionAccueil.classList.add('masquee');
                 sectionReservation.classList.add('visible');
-                // Scroll en haut pour voir le début de la réservation
+                document.title = 'Réserver un créneau — Douce Garde';
                 sectionReservation.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
-
             function afficherAccueil() {
+                document.title = 'Douce Garde — Baby-sitting de confiance avec Léa';
                 sectionReservation.classList.remove('visible');
                 sectionAccueil.classList.remove('masquee');
                 messageConfirmation.classList.remove('visible');
-                formulaire.style.display = ''; // Réaffiche le formulaire si masqué
+                formulaire.style.display = '';
                 formulaire.reset();
+                selection = null;
+                afficherGrilles();
+                majResume();
                 sectionAccueil.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
-
             boutonAllerReservation.addEventListener('click', afficherReservation);
             boutonRetourAccueil.addEventListener('click', afficherAccueil);
 
-            // --- VALIDATION DU FORMULAIRE ET AFFICHAGE CONFIRMATION ---
+            // --- ENVOI DE LA DEMANDE PAR WHATSAPP ---
+            function construireMessageWhatsApp() {
+                const d = detailsSelection();
+                const valeur = function(id) { return document.getElementById(id).value.trim(); };
+                const selectService = document.getElementById('typeService');
+                const service = selectService.options[selectService.selectedIndex].text;
+                const lignes = [
+                    'Bonjour Léa ! 👋',
+                    'Je souhaite réserver un baby-sitting :',
+                    '',
+                    '📅 ' + d.dateTexte,
+                    '🕐 De ' + d.heureDebut + ' à ' + d.heureFin + ' (' + d.dureeTexte + ')',
+                    '🧸 Service : ' + service,
+                    '👶 Enfants : ' + valeur('nbEnfants') + ' (' + valeur('agesEnfants') + ')',
+                    '📍 Adresse : ' + valeur('adresse'),
+                    '💶 Estimation : ' + d.prix + ' €',
+                    '',
+                    '👤 ' + valeur('prenom') + ' ' + valeur('nom'),
+                    '📞 ' + valeur('telephone')
+                ];
+                if (valeur('message')) lignes.push('💬 ' + valeur('message'));
+                return lignes.join('\n');
+            }
+
             formulaire.addEventListener('submit', function(e) {
-                e.preventDefault(); // Empêche l'envoi réel
-
-                // Vérifie que l'heure de fin est après l'heure de début
-                const debut = selectHeureDebut.value;
-                const fin = selectHeureFin.value;
-                if (debut && fin && debut >= fin) {
-                    alert(
-                        '⚠️ L\'heure de fin doit être après l\'heure de début. Veuillez vérifier les horaires.');
+                e.preventDefault();
+                if (!selection) {
+                    alert('⚠️ Choisissez d\'abord un jour et vos quarts d\'heure dans la grille « Choisissez votre créneau ».');
+                    blocCreneaux.scrollIntoView({ behavior: 'smooth', block: 'start' });
                     return;
                 }
-
-                // Vérifie qu'une date future est sélectionnée
-                if (inputDate.value && inputDate.value < aujourdHui) {
-                    alert('⚠️ La date doit être à partir d\'aujourd\'hui.');
-                    return;
-                }
-
-                // Vérifie les champs obligatoires (le navigateur gère required, mais double vérification)
                 if (!formulaire.checkValidity()) {
                     formulaire.reportValidity();
                     return;
                 }
-
-                // Cache le formulaire et affiche la confirmation
+                memoriserInfosClient();
+                window.open('https://wa.me/' + NUMERO_WHATSAPP + '?text=' + encodeURIComponent(construireMessageWhatsApp()), '_blank');
                 formulaire.style.display = 'none';
                 messageConfirmation.classList.add('visible');
                 messageConfirmation.scrollIntoView({ behavior: 'smooth', block: 'center' });
             });
 
-            // --- RÉINITIALISER LE FORMULAIRE SI ON REVIENT (déjà fait dans afficherAccueil) ---
-            // --- PETIT PLUS : fermer la confirmation si on modifie un champ (pour réessayer) ---
-            const champsFormulaire = formulaire.querySelectorAll('input, select, textarea');
-            champsFormulaire.forEach(champ => {
+            // Réaffiche le formulaire si on modifie un champ après confirmation
+            formulaire.querySelectorAll('input, select, textarea').forEach(function(champ) {
                 champ.addEventListener('input', function() {
                     if (messageConfirmation.classList.contains('visible')) {
                         messageConfirmation.classList.remove('visible');
@@ -924,10 +1437,272 @@
                 });
             });
 
+            // ===========================
+            // MODE PRO (adresse du site + #pro)
+            // ===========================
+            function majEtatPro(texte) {
+                if (etatPro) etatPro.textContent = texte;
+            }
+
+            function clicCreneauPro(iFen, idx) {
+                const hm = creneauxFenetre(iFen)[idx];
+                const liste = occupe[jourActif] || (occupe[jourActif] = []);
+                const p = liste.indexOf(hm);
+                if (p >= 0) liste.splice(p, 1);
+                else liste.push(hm);
+                if (!liste.length) delete occupe[jourActif];
+                majEtatPro('⚠️ Modifications non enregistrées — pense à « Enregistrer ».');
+                afficherGrilles();
+            }
+
+            function nettoyerDispos() {
+                // Trie les créneaux et supprime les jours passés avant sauvegarde
+                Object.keys(occupe).forEach(function(jour) {
+                    if (jour < aujourdHuiISO) delete occupe[jour];
+                    else occupe[jour].sort();
+                });
+            }
+
+            function contenuJSON() {
+                nettoyerDispos();
+                return JSON.stringify({ occupe: occupe }, null, 2) + '\n';
+            }
+
+            async function enregistrerSurGitHub() {
+                let token = localStorage.getItem('jetonGitHub');
+                if (!token) {
+                    token = prompt(
+                        'Première utilisation : colle ici ton token GitHub.\n\n' +
+                        'À créer une seule fois sur github.com → Settings → Developer settings → ' +
+                        'Fine-grained personal access tokens, avec accès en écriture (Contents) au dépôt ' +
+                        DEPOT_GITHUB + '.\n\nIl restera enregistré sur cet appareil.');
+                    if (!token) return;
+                    token = token.trim();
+                    localStorage.setItem('jetonGitHub', token);
+                }
+                majEtatPro('Enregistrement en cours…');
+                const api = 'https://api.github.com/repos/' + DEPOT_GITHUB + '/contents/' + FICHIER_DISPOS;
+                const enTetes = {
+                    'Authorization': 'Bearer ' + token,
+                    'Accept': 'application/vnd.github+json'
+                };
+                async function tenterEcriture() {
+                    let sha = null;
+                    const lecture = await fetch(api + '?ref=main', { headers: enTetes });
+                    if (lecture.ok) sha = (await lecture.json()).sha;
+
+                    const corps = {
+                        message: 'Mise à jour des disponibilités',
+                        content: btoa(unescape(encodeURIComponent(contenuJSON()))),
+                        branch: 'main'
+                    };
+                    if (sha) corps.sha = sha;
+                    return fetch(api, { method: 'PUT', headers: enTetes, body: JSON.stringify(corps) });
+                }
+                try {
+                    let ecriture = await tenterEcriture();
+                    if (ecriture.status === 409 || ecriture.status === 422) {
+                        // sha périmé (autre enregistrement entre-temps) : on relit puis on retente une fois
+                        ecriture = await tenterEcriture();
+                    }
+                    if (ecriture.status === 401 || ecriture.status === 403) {
+                        localStorage.removeItem('jetonGitHub');
+                        majEtatPro('❌ Token refusé. Réappuie sur « Enregistrer » pour en saisir un nouveau.');
+                        return;
+                    }
+                    if (!ecriture.ok) throw new Error('HTTP ' + ecriture.status);
+                    majEtatPro('✅ Enregistré ! Le site public sera à jour dans environ une minute.');
+                } catch (err) {
+                    majEtatPro('❌ Échec de l\'enregistrement (' + err.message + '). Utilise « Copier le JSON » en secours.');
+                }
+            }
+
+            function copierJSON() {
+                const contenu = contenuJSON();
+                const urlEdition = 'https://github.com/' + DEPOT_GITHUB + '/edit/main/' + FICHIER_DISPOS;
+                (navigator.clipboard ? navigator.clipboard.writeText(contenu) : Promise.reject())
+                    .then(function() {
+                        majEtatPro('📋 JSON copié ! Colle-le dans le fichier qui va s\'ouvrir, puis « Commit changes ».');
+                    })
+                    .catch(function() {
+                        prompt('Copie ce contenu puis colle-le dans ' + FICHIER_DISPOS + ' sur GitHub :', contenu);
+                    })
+                    .finally(function() {
+                        window.open(urlEdition, '_blank');
+                    });
+            }
+
+            function initModePro() {
+                if (modeProInitialise) return;
+                modeProInitialise = true;
+                modePro = true;
+                document.body.classList.add('mode-pro');
+                document.getElementById('boutonEnregistrerDispos').addEventListener('click', enregistrerSurGitHub);
+                document.getElementById('boutonCopierDispos').addEventListener('click', copierJSON);
+                document.getElementById('boutonBloquerJour').addEventListener('click', function() {
+                    occupe[jourActif] = [];
+                    FENETRES.forEach(function(f, iFen) {
+                        creneauxFenetre(iFen).forEach(function(hm) { occupe[jourActif].push(hm); });
+                    });
+                    majEtatPro('⚠️ Modifications non enregistrées — pense à « Enregistrer ».');
+                    afficherGrilles();
+                });
+                document.getElementById('boutonLibererJour').addEventListener('click', function() {
+                    delete occupe[jourActif];
+                    majEtatPro('⚠️ Modifications non enregistrées — pense à « Enregistrer ».');
+                    afficherGrilles();
+                });
+                afficherReservation();
+            }
+
+            // ===========================
+            // CONNEXION GOOGLE + MÉMORISATION DES INFOS
+            // ===========================
+            const blocConnexion = document.getElementById('blocConnexion');
+            const zoneBoutonGoogle = document.getElementById('zoneBoutonGoogle');
+            const carteProfil = document.getElementById('carteProfil');
+            const CHAMPS_MEMORISES = ['prenom', 'nom', 'telephone', 'adresse', 'nbEnfants', 'agesEnfants'];
+
+            function restaurerInfosClient() {
+                let infos;
+                try { infos = JSON.parse(localStorage.getItem('infosClient') || 'null'); } catch (e) { infos = null; }
+                if (!infos) return;
+                CHAMPS_MEMORISES.forEach(function(id) {
+                    const champ = document.getElementById(id);
+                    if (champ && !champ.value && infos[id]) champ.value = infos[id];
+                });
+            }
+
+            function memoriserInfosClient() {
+                const infos = {};
+                CHAMPS_MEMORISES.forEach(function(id) {
+                    infos[id] = document.getElementById(id).value.trim();
+                });
+                try { localStorage.setItem('infosClient', JSON.stringify(infos)); } catch (e) {}
+            }
+
+            function afficherProfil(profil) {
+                zoneBoutonGoogle.hidden = true;
+                carteProfil.hidden = false;
+                document.getElementById('photoProfil').src = profil.photo || '';
+                document.getElementById('nomProfil').textContent = profil.prenom + ' ' + profil.nom;
+                document.getElementById('emailProfil').textContent = profil.email;
+                document.getElementById('badgeAdmin').hidden = true;
+                // Pré-remplit sans écraser ce que le parent a déjà tapé
+                const champPrenom = document.getElementById('prenom');
+                const champNom = document.getElementById('nom');
+                if (!champPrenom.value && profil.prenom) champPrenom.value = profil.prenom;
+                if (!champNom.value && profil.nom) champNom.value = profil.nom;
+                empreinteEmail(profil.email).then(function(empreinte) {
+                    if (EMPREINTES_ADMIN.indexOf(empreinte) === -1) return;
+                    document.getElementById('badgeAdmin').hidden = false;
+                    initModePro();
+                    majEtatPro('Connectée en tant qu\'admin (' + profil.email + '). Touche les créneaux à bloquer, puis « Enregistrer ».');
+                });
+            }
+
+            // Empreinte SHA-256 d'une adresse e-mail (aussi disponible dans la console
+            // du navigateur pour générer les valeurs d'EMPREINTES_ADMIN)
+            async function empreinteEmail(email) {
+                if (!window.crypto || !crypto.subtle) return '';
+                const octets = new TextEncoder().encode(email.trim().toLowerCase());
+                const h = await crypto.subtle.digest('SHA-256', octets);
+                return Array.from(new Uint8Array(h)).map(function(o) {
+                    return o.toString(16).padStart(2, '0');
+                }).join('');
+            }
+            window.empreinteEmail = empreinteEmail;
+
+            function connexionGoogle(reponse) {
+                // Le jeton est un JWT : on décode sa partie centrale (base64url) pour lire le profil
+                let donnees;
+                try {
+                    const brut = reponse.credential.split('.')[1].replace(/-/g, '+').replace(/_/g, '/');
+                    donnees = JSON.parse(decodeURIComponent(atob(brut).split('').map(function(c) {
+                        return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+                    }).join('')));
+                } catch (e) {
+                    alert('Connexion Google impossible, réessayez.');
+                    return;
+                }
+                const profil = {
+                    prenom: donnees.given_name || '',
+                    nom: donnees.family_name || '',
+                    email: (donnees.email || '').toLowerCase(),
+                    photo: donnees.picture || ''
+                };
+                try { localStorage.setItem('profilGoogle', JSON.stringify(profil)); } catch (e) {}
+                afficherProfil(profil);
+            }
+
+            function deconnexionGoogle() {
+                localStorage.removeItem('profilGoogle');
+                if (window.google && google.accounts && google.accounts.id) google.accounts.id.disableAutoSelect();
+                carteProfil.hidden = true;
+                zoneBoutonGoogle.hidden = false;
+                if (modeProInitialise && window.location.hash !== '#pro') {
+                    // Le plus simple pour désactiver proprement le mode admin : recharger la page
+                    window.location.reload();
+                }
+            }
+
+            function initConnexionGoogle() {
+                const configure = GOOGLE_CLIENT_ID.indexOf('REMPLACER') === -1;
+                if (!configure) return; // pas encore de Client ID : on n'affiche pas le bloc
+                blocConnexion.hidden = false;
+                document.getElementById('boutonDeconnexion').addEventListener('click', deconnexionGoogle);
+
+                // Session mémorisée sur cet appareil ?
+                let profil;
+                try { profil = JSON.parse(localStorage.getItem('profilGoogle') || 'null'); } catch (e) { profil = null; }
+                if (profil && profil.email) afficherProfil(profil);
+
+                // Initialise le bouton Google dès que la librairie est chargée
+                let essais = 0;
+                (function attendreGoogle() {
+                    if (window.google && google.accounts && google.accounts.id) {
+                        google.accounts.id.initialize({
+                            client_id: GOOGLE_CLIENT_ID,
+                            callback: connexionGoogle,
+                            auto_select: false
+                        });
+                        google.accounts.id.renderButton(document.getElementById('boutonGoogle'), {
+                            theme: 'outline', size: 'large', text: 'continue_with',
+                            shape: 'pill', locale: 'fr', width: 280
+                        });
+                    } else if (essais++ < 50) {
+                        setTimeout(attendreGoogle, 200);
+                    }
+                })();
+            }
+
+            // ===========================
+            // INITIALISATION
+            // ===========================
+            document.getElementById('lienEvitement').addEventListener('click', function(e) {
+                e.preventDefault();
+                afficherReservation();
+            });
+            // Affiche le numéro de secours (SMS) en le reconstruisant, pour qu'il ne
+            // figure pas en clair dans le code source de la page
+            const numeroNational = '0' + NUMERO_WHATSAPP.slice(2);
+            document.getElementById('numeroSecours').textContent = numeroNational.replace(/(\d{2})(?=\d)/g, '$1 ');
+
+            jourActif = aujourdHuiISO;
+            afficherJours();
+            afficherGrilles();
+            chargerDispos().then(function() {
+                afficherGrilles();
+                if (modePro) majEtatPro('Disponibilités chargées. Touche les créneaux à bloquer, puis « Enregistrer ».');
+            });
+            if (modePro) initModePro();
+            restaurerInfosClient();
+            initConnexionGoogle();
+
             console.log('✅ Site de baby-sitting Léa prêt !');
-            console.log('📝 Pour modifier les disponibilités, cherche "MODE D\'EMPLOI" dans le HTML.');
-            console.log('📝 Pour changer les tarifs, cherche la section "bloc-tarifs".');
-            console.log('📝 Pour changer la photo, cherche "photo-placeholder" dans le HTML.');
+            console.log('🔒 Mode pro : ajoute #pro à la fin de l\'adresse du site pour gérer tes créneaux occupés.');
+            console.log('📝 Pour changer les horaires proposés, cherche "FENETRES" dans le script.');
+            console.log('📝 Pour changer le numéro WhatsApp, cherche "NUMERO_WHATSAPP".');
         })();
     </script>
 
