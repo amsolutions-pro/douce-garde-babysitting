@@ -1231,6 +1231,8 @@
                     const bouton = document.createElement('button');
                     bouton.type = 'button';
                     bouton.className = 'bouton-jour' + (iso === jourActif ? ' actif' : '');
+                    bouton.setAttribute('aria-label', formatDateLongue.format(d));
+                    if (iso === jourActif) bouton.setAttribute('aria-current', 'date');
                     bouton.innerHTML = '<span class="jour-semaine">' + (i === 0 ? "auj." : formatJourCourt.format(d)) + '</span>' +
                         '<span class="jour-date">' + formatDateCourte.format(d) + '</span>';
                     bouton.addEventListener('click', function() {
